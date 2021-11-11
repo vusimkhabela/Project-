@@ -1,23 +1,23 @@
-<?php
-if(isset($_POST['submit'])){
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $gender = $_POST['gender'];
-    $email = $_POST['email'];
-    $num = $_POST['num'];
-    $country = $_POST['country'];
-    $password = $_POST['pass'];
-    $cpassword = $_POST['cpass'];
-    $hobbies = $_POST['hobby'];
-    $profilepicture = $_FILES['profilepicture']['name'];
-    $tmp_profilepicture = $_FILES['profilepicture']['tmp_name'];
-    $checkbox= isset($_POST['agree-terms']);
-    echo "Saved!";
-}
-else{
-    echo "Not Saved";
-}
-?>
+<!-- <?php
+// if(isset($_POST['submit'])){
+//     $firstname = $_POST['firstname'];
+//     $lastname = $_POST['lastname'];
+//     $gender = $_POST['gender'];
+//     $email = $_POST['email'];
+//     $num = $_POST['num'];
+//     $country = $_POST['country'];
+//     $password = $_POST['pass'];
+//     $cpassword = $_POST['cpass'];
+//     $hobbies = $_POST['hobby'];
+//     $profilepicture = $_FILES['profilepicture']['name'];
+//     $tmp_profilepicture = $_FILES['profilepicture']['tmp_name'];
+//     $checkbox= isset($_POST['terms']);
+//     echo "Saved!";
+// }
+// else{
+//     echo "Not Saved";
+// }
+?> -->
     <!doctype html>
     <html lang="en">
 
@@ -56,7 +56,7 @@ else{
                         <!--      Wizard container        -->
                         <div class="wizard-container">
                             <div class="card wizard-card" data-color="orange" id="wizardProfile">
-                                <form action=" " method="POST" enctype="multipart/form-data">
+                                <form action="connect.php" method="POST" class="register-form" id="register-form">
 
                                     <div class="wizard-header text-center">
                                         <h1 class="wizard-title">Welcome</h1>

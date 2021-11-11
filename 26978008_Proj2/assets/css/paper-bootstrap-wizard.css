@@ -2018,7 +2018,7 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .wizard-card {
-    min-height: 410px;
+    min-height: 610px;
     box-shadow: 0 20px 16px -15px rgba(0, 0, 0, 0.57);
 }
 
