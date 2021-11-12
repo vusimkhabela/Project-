@@ -1,5 +1,6 @@
 html {
     font-family: sans-serif;
+    width: auto;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%
 }
@@ -262,7 +263,8 @@ body {
     font-size: 14px;
     line-height: 1.42857143;
     color: #333;
-    background-color: #fff
+    background-color: blue;
+    width: 100%;
 }
 
 input,
@@ -565,6 +567,12 @@ a.text-primary:focus {
     color: #3c763d
 }
 
+.text-success:before {
+    position: relative;
+    left: -8px;
+    content: url(true.png);
+}
+
 a.text-success:hover,
 a.text-success:focus {
     color: #2b542c
@@ -590,6 +598,12 @@ a.text-warning:focus {
 
 .text-danger {
     color: #a94442
+}
+
+.text-danger:before {
+    color: #050101;
+    position: relative;
+    content: url(false.png);
 }
 
 .bg-info {
@@ -759,7 +773,7 @@ code {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 2rem 0;
+    padding: 0rem 0;
 }
 
 .picturesuploaded .box-container .box {
@@ -1960,6 +1974,38 @@ fieldset[disabled] .btn-warning.focus {
     border-color: #761c19
 }
 
+
+/* -----------------PASWORD POLICIES--------------- */
+
+.form .form-group .password-policies {
+    position: relative;
+    top: 0px;
+    left: 50%;
+    border-radius: 5px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    opacity: 0;
+    overflow: hidden;
+    transition: height 300ms ease-in-out, opacity 300ms ease-in-out;
+}
+
+.form .form-group .password-policies.active {
+    opacity: 1;
+    padding: 10px;
+    height: 180px;
+}
+
+.form .form-group .password-policies>div {
+    margin: 15px 10px;
+    font-weight: 600;
+    color: red;
+    transition: all 300ms ease-in-out;
+}
+
+.form .form-group .password-policies>div.active {
+    color: green;
+}
+
 .btn-danger:hover {
     color: #fff;
     background-color: #c9302c;
@@ -2999,7 +3045,7 @@ header {
     top: 0;
     z-index: 900;
     height: 78%;
-    width: 23rem;
+    width: 20rem;
     background: #1a1a1a;
     align-items: center;
     justify-content: center;
@@ -3042,8 +3088,9 @@ header .navbar {
 }
 
 .photo-gallery {
-    width: 90%;
+    position: relative;
     margin: auto;
+    margin-right: 10em;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 20px;
@@ -3055,12 +3102,6 @@ header .navbar {
   height: 3.5em;
 }
 
-.gallery {
-  display: grid;
-  
-  row-gap: 1.7em;
-  margin-bottom: 2em;
-}
 
 
 

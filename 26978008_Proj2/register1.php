@@ -1,35 +1,65 @@
 <?php
-
+include("function.php");
 include("connect.php");
-$msg2=' ';
-$msg1=' ';
-$msg=' ';
-$msg3=' ';
+$msg2 = ' ';
+$msg1 = ' ';
+$msg = ' ';
+$msg3 = ' ';
+$msg4 = ' ';
+$firstname = ' ';
+$lastname = ' ';
+$email = ' ';
+$num = ' ';
+$pass = ' ';
+$tagline = ' ';
+$profilepicture = ' ';
 if (isset($_POST['submit'])) {
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
-    $radio= isset($_POST['gender']);
+    $radio = isset($_POST['gender']);
     $email = $_POST['email'];
     $num = $_POST['num'];
     $country = $_POST['country'];
     $pass = $_POST['pass'];
     $cpass = $_POST['cpass'];
-    $checkbox = isset($_POST['hobby']);
+    $checkbox1 = isset($_POST['hobby']);
     $profilepicture = $_FILES['profilepicture']['name'];
     $tmp_profilepicture = $_FILES['profilepicture']['tmp_name'];
     $checkbox = isset($_POST['terms']);
-    echo "Saved user:" .$firstname. " " .$lastname. " , " .$radio. " , " .$country. " , " .$checkbox;
+    $tagline = $_POST['tagline'];
+    echo "Saved user:" . $firstname . " " . $lastname . " , " . $radio . " , " . $country . " , " . $checkbox
+        . " , " . $email . " , " . $num . " , " . $pass . " , " . $profilepicture . " , " . $checkbox1 . " " . $tagline;
     if (strlen($pass) < 6) {
         $msg = "Your membership was not saved! Password must contain 5 characters";
     } else if ($pass !== $cpass) {
         $msg1 = "Your membership was not saved! Password is not the same.";
-    } else if ($checkbox==1) {
+    } else if (email_exists($email, $conn)) {
+        $msg4 = "Your membership was not saved! The email already exists.";
+        $msg2 = ' ';
+        $msg1 = ' ';
+        $msg = ' ';
+        $msg3 = ' ';
+        $firstname = ' ';
+        $lastname = ' ';
+        $email = ' ';
+        $num = ' ';
+    } else if ($checkbox == '') {
         $msg2 = "Your membership was not saved! Please Agree with our Terms and Conditions";
-    }
-    else{
-        mysqli_query($conn, "INSERT INTO register(firstname, lastname, gender, email, num, country, pass, hobby, profilepicture, terms)
-        VALUES ('$firstname', '$lastname', '$gender', '$email', '$num', '$country', '$pass', '$hobby', '$profilepicture', '$terms')");
+    } else {
+        $pass=md5($pass);
+        // password encryption
+        mysqli_query($conn, "INSERT INTO register(firstname, lastname, gender, country, terms, email, num, pass, profilepicture, hobby, tagline)
+        VALUES ('$firstname', '$lastname', '$radio', '$country', '$checkbox', '$email', '$num', '$pass', '$profilepicture', '$checkbox1', '$tagline')");
         $msg3 = "Your membership was successfully saved!";
+        $msg2 = ' ';
+        $msg1 = ' ';
+        $msg = ' ';
+        $firstname = ' ';
+        $lastname = ' ';
+        $email = ' ';
+        $num = ' ';
+        $tagline = ' ';
+        $profilepicture = ' ';
     }
 }
 if (isset($_POST['next'])) {
@@ -91,6 +121,11 @@ if (isset($_POST['next'])) {
                                         <?php echo $msg1; ?>
                                         <?php echo $msg2; ?>
                                         <?php echo $msg3; ?>
+                                        <?php echo $msg4;
+                                        echo $msg3 = '';
+                                        echo $msg2 = '';
+                                        echo $msg1 = '';
+                                        echo $msg0 = '';   ?>
                                     </p>
                                 </div>
 
@@ -135,20 +170,20 @@ if (isset($_POST['next'])) {
                                                 <div class="picture-container">
                                                     <div class="picture">
                                                         <img src="assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
-                                                        <!--PROFILE PICTURE-->
-                                                        <input type="file" name="profilepicture" id="wizard-picture">
+                                                        <!-- PROFILE PICTURE change accept formats -->
+                                                        <input type="file" name="profilepicture" id="wizard-picture" value='<?php echo $profilepicture; ?>' accept=".jpg, .png,">
                                                     </div>
                                                     <h6>Choose Picture</h6>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label>First Name <small>(required)</small></label>
-                                                    <input name="firstname" type="text" class="form-control" placeholder="Vusi...">
+                                                    <label for="firstname">First Name <small>(required)</small></label>
+                                                    <input name="firstname" type="text" class="form-control" placeholder="Vusi..." value='<?php echo $firstname; ?>'>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Last Name <small>(required)</small></label>
-                                                    <input name="lastname" type="text" class="form-control" placeholder="Mkhabela...">
+                                                    <label for="lastname">Last Name <small>(required)</small></label>
+                                                    <input name="lastname" type="text" class="form-control" placeholder="Mkhabela..." value='<?php echo $lastname; ?>'>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="gender">Gender</label>
@@ -161,18 +196,18 @@ if (isset($_POST['next'])) {
                                             </div>
                                             <div class="col-sm-10 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    <label>Email <small>(required)</small></label>
-                                                    <input name="email" type="email" class="form-control" placeholder="26978008@nwu.ac.za">
+                                                    <label for="email">Email <small>(required)</small></label>
+                                                    <input name="email" type="email" class="form-control" placeholder="26978008@nwu.ac.za" value='<?php echo $email; ?>'>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Contacts</label>
-                                                    <input name="num" type="number" class="form-control" placeholder="+27767531710">
+                                                    <label for="num">Contacts</label>
+                                                    <input name="num" type="number" class="form-control" id="tel" placeholder="+27767531710" value='<?php echo $number; ?>' digits>
                                                 </div>
                                             </div>
                                             <div class="col-sm-10 col-sm-offset-1">
                                                 <div class="form-group">
                                                     <label>Country</label><br>
-                                                    <select name="country" class="form-control">
+                                                    <select name="country" class="form-control" placeholder='<?php echo $firstname; ?>'>
                                                         <option value="Afghanistan"> Afghanistan </option>
                                                         <option value="Albania"> Albania </option>
                                                         <option value="Algeria"> Algeria </option>
@@ -195,58 +230,58 @@ if (isset($_POST['next'])) {
                                                 <h5 class="info-text"> Create a password </h5>
 
                                                 <div class="form-group">
-                                                    <input type="password" name="pass" class="form-control" placeholder="**********"> Password with at least 6 or more characters.
+                                                    <input type="password" id="pass" name="pass" class="form-control" placeholder="**********" required>
+                                                    <div class="password-policies">
+                                                        <div class="length">
+                                                            8 Characters
+                                                        </div>
+                                                        <div class="number">
+                                                            Contains Number
+                                                        </div>
+                                                        <div class="uppercase">
+                                                            Contains Uppercase
+                                                        </div>
+                                                        <div class="special">
+                                                            Contains Special Characters
+                                                        </div>
+                                                    </div>
+                                                    <br />
                                                 </div>
                                                 <h6 class="info-text"> Repeat password </h6>
                                                 <div class="form-group">
-                                                    <input type="password" name="cpass" class="form-control" placeholder="**********">
+                                                    <input type="password" name="cpass" class="form-control" placeholder="**********" required>
                                                 </div>
+
+                                                <hr />
                                                 <div class="form-group">
-                                                    <input type="checkbox" name="terms" id="terms" class="agree-term" />
-                                                    <label for="terms" class="label-agree-term"><span><span></span></span>Agree with
-                                                        the terms and conditions.</label>
+                                                    <input type="checkbox" name="terms" id="terms" class="agree-term" required>
+
+                                                    <label for="terms" class="label-agree-term">Please read and Agree with our <a href>
+                                                            terms and conditions.</a></label>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
 
 
                                     <!--THIRD PANE-->
                                     <div class="tab-pane" id="account">
+                                        <div class="row">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="form-group">
+                                                <h5 class="info-text"> What tags best suit you (your interests)?</h5>
+                                                    <input name="tagline" type="text" class="form-control" value='<?php echo $tagline; ?>'>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <h5 class="info-text"> What are you Hobbies? (checkboxes) </h5>
                                         <!--HOBBIES LIST-->
                                         <div class="row">
                                             <div class="col-sm-8 col-sm-offset-2">
                                                 <div class="col-sm-4">
                                                     <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Design">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-paint-roller"></i>
-                                                            <p>Design</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Code">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-pencil-alt"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby4" value="Develop">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-star"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Design">
+                                                        <input type="checkbox" name="hobby" value="Graphic Design">
                                                         <div class="card card-checkboxes card-hover-effect">
                                                             <i class="ti-paint-roller"></i>
                                                         </div>
@@ -255,77 +290,96 @@ if (isset($_POST['next'])) {
 
                                                 <div class="col-sm-4">
                                                     <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Code">
+                                                        <input type="checkbox" name="hobby" value="Fishing">
                                                         <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-pencil-alt"></i>
-                                                            <p>Code</p>
+                                                            <<i class="fas fa-fish"></i>>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-sm-4">
                                                     <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Develop">
+                                                        <input type="checkbox" name="hobby4" value="Photography">
                                                         <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-star"></i>
+                                                            <i class="fab fa-algolia"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Design">
+                                                        <input type="checkbox" name="hobby" value="Gym">
                                                         <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-paint-roller"></i>
-                                                            <p>Design</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Code">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-pencil-alt"></i>
-                                                            <p>Code</p>
+                                                            <i class="fas fa-dumbbell"></i>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-sm-4">
                                                     <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Develop">
+                                                        <input type="checkbox" name="hobby" value="Football">
                                                         <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-star"></i>
-                                                            <p>Develop</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Design">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-paint-roller"></i>
-                                                            <p>Design</p>
+                                                            <i class="fas fa-football-ball"></i>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-sm-4">
                                                     <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Code">
+                                                        <input type="checkbox" name="hobby" value="Travel">
                                                         <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-pencil-alt"></i>
-                                                            <p>Code</p>
+                                                            <<i class="fas fa-passport"></i>></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                        <input type="checkbox" name="hobby" value="Cooking">
+                                                        <div class="card card-checkboxes card-hover-effect">
+                                                            <i class="fas fa-blender"></i>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-sm-4">
                                                     <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Develop">
+                                                        <input type="checkbox" name="hobby" value="Reading">
                                                         <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-star"></i>
-                                                            <p>Develop</p>
+                                                            <i class="fas fa-book-reader"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                        <input type="checkbox" name="hobby" value="Gardening">
+                                                        <div class="card card-checkboxes card-hover-effect">
+                                                            <<i class="fas fa-seedling"></i>></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                        <input type="checkbox" name="hobby" value="Singing">
+                                                        <div class="card card-checkboxes card-hover-effect">
+                                                            <<i class="fas fa-music"></i>></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                        <input type="checkbox" name="hobby" value="Playing Instruments">
+                                                        <div class="card card-checkboxes card-hover-effect">
+                                                            <<i class="fas fa-guitar"></i>></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                        <input type="checkbox" name="hobby" value="Writing">
+                                                        <div class="card card-checkboxes card-hover-effect">
+                                                            <i class="bi bi-pencil-fill"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -340,7 +394,7 @@ if (isset($_POST['next'])) {
                                 <!--fOOTER-->
                                 <div class="wizard-footer">
                                     <div class="pull-right">
-                                        <input type='next' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' />
+                                        <input type='next' id='next' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' />
                                         <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd' name='submit' value='Finish' />
                                     </div>
 
@@ -352,12 +406,14 @@ if (isset($_POST['next'])) {
 
                                 <div class="col-sm-7 col-sm-offset-1">
                                     <div class="row">
-                                        <h5>Already a member? <a href>Log in</a></h5>
+                                        <h5>Already registered ? <a href="login.php">Log in</a></h5>
                                         Tersms of popnsdjcbsghdv shdvchsjdb vhsdv askhdcbhas ck h ashc sj ijasbc sdchva scahs cabscg ascagsvcha scka ashjbcahjdvcbksbcjksbd vkbsdklvnsljvn;k
                                     </div>
                                 </div>
 
                             </form>
+
+
                         </div>
                     </div>
                     <!-- wizard container -->
@@ -374,13 +430,16 @@ if (isset($_POST['next'])) {
         </div>
     </div>
 
+
+
 </body>
 
 <!--   Core JS Files   -->
 <script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
 <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script type="text/javascript"></script>
 <!--  Plugin for the Wizard -->
 <script src="assets/js/demo.js" type="text/javascript"></script>
 <script src="assets/js/paper-bootstrap-wizard.js" type="text/javascript"></script>

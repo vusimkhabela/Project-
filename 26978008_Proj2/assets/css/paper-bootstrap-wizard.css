@@ -401,8 +401,10 @@ input[type="button"]:focus {
 }
 
 .wizard-container {
-    padding-top: 100px;
+    padding-top: 1em;
+    margin-top: 10em;
     z-index: 3;
+    background-color: red;
 }
 
 .made-with-pk {
@@ -2018,7 +2020,6 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .wizard-card {
-    min-height: 610px;
     box-shadow: 0 20px 16px -15px rgba(0, 0, 0, 0.57);
 }
 

@@ -1,3 +1,22 @@
+<?php
+include("function.php");
+include("connect.php");
+session_start();
+$email = $_SESSION['email'];
+$info = mysqli_query($conn, "SELECT firstname, lastname, gender, num, country, profilepicture, hobby, tagline FROM register WHERE email='$email'");
+$retrieve = mysqli_fetch_array($info);
+// print_r($retrieve);
+$firstname = $retrieve['firstname'];
+$lastname = $retrieve['lastname'];
+$radio = isset($retrieve['gender']);
+$num = $retrieve['num'];
+$country = $retrieve['country'];
+$profilepicture = $retrieve['profilepicture'];
+$checkbox1 = isset($retrieve['hobby']);
+$tagline = $retrieve['tagline'];
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -42,7 +61,7 @@
             </li>
             <li class="dropdown" id="menu-messages">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                    <span class="text">Profie</span>
+                    <span class="text">Profile</span>
                     <ul class="dropdown-menu">
                         <li><a class="btn" title="" href="#">Edit Profile</a></li>
                         <li><a class="btn" title="" href="#">Upload</a></li>
@@ -52,14 +71,22 @@
             <li>
                 <a class="btn" href="#">Contact</a>
             </li>
+            <li>
+                <a class="btn" href="#">Log out</a>
+            </li>
         </ul>
     </nav>
 
-    <div class="wizard-card" data-color="orange">
+    <div class="wizard-content" data-color="orange">
         <div class="wizard-header text-center">
-            <h1 class="wizard-title"><span>User</span>'s Profile</h1>
+            <h1 class="wizard-title">Personal Space</h1>
             <h3 class="wizard-title">What would you like to upload?</h3>
             <p class="category">Acceptable format: jpg, png, jpeg, raw</p>
+
+            <p class="category">
+                <?php echo $email; ?>
+            </p>
+
         </div>
     </div>
 
@@ -79,9 +106,11 @@
 
                 <header>
                     <div class="user">
-                        <img src="/assets/img/default-avatar.jpg" alt="">
-                        <h3 class="name">shaikh anas</h3>
-                        <p class="post">front end developer</p>
+                        <img src='<?php 
+                        if($profilepicture==null){ echo "assets/img/default-avatar.jpg"; }
+                        else{ echo $profilepicture; } ?>' alt="Profile Picture">
+                        <h3 class="name"><?php echo ucfirst($firstname)." ".ucfirst($lastname); ?></h3>
+                        <p class="post"><?php echo $tagline; ?></p>
                     </div>
 
                     <nav class="navbar-user">
@@ -127,11 +156,11 @@
                             <h3 class="widget-title"> <span>MY</span> DETAILS</h3>
                             <div class="widget-content">
                                 <div class="info">
-                                    <h5> <span> Name : </span> shaikh anas </h5>
-                                    <h5> <span> Surname : </span> 20 </h5>
-                                    <h5> <span> Age : </span> 20 </h5>
-                                    <h5> <span> Hobbies : </span> front end developer </h5>
-                                    <h5> <span> Country : </span> hindi </h5>
+                                    <h5> <span> Name : </span><?php echo ucfirst($firstname); ?> </h5>
+                                    <h5> <span> Surname : </span><?php echo ucfirst($lastname); ?></h5>
+                                    <h5> <span> Gender : </span> <?php echo ucfirst($gender); ?> </h5>
+                                    <h5> <span> Hobbies : </span><?php echo $hobby; ?></h5>
+                                    <h5> <span> Country : </span><?php echo ucfirst($country); ?></h5>
                                 </div>
                             </div>
                         </section>

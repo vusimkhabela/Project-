@@ -1,3 +1,38 @@
+<?php
+include("function.php");
+include("connect.php");
+session_start();
+$msg = ' ';
+$email = ' ';
+$msg1 = 'Log in';
+
+if (isset($_POST['submit'])) {
+    $email = $_POST['email'];
+    $pass = $_POST['pass'];
+    // $profilepicture = $_FILES['profilepicture']['name'];
+    // $firstname = $_POST['firstname'];
+    // $checkbox = isset($_POST['remember']);
+    // 
+    if (email_exists($email, $conn)) {
+
+        $msg1 = "Welcome back";
+
+        $pass = mysqli_query($conn, "SELECT pass FROM register WHERE email='$email'");
+        $pass_w= mysqli_fetch_array($pass);
+        $dpass = $pass_w['pass'];
+        $pass= md5($pass);
+        if ($pass !== $dpass) {
+            $msg = "Incorrect Password";
+        } else {
+            $_SESSION['email'] = $email;
+            header("location:editprofile.php");
+        }
+    } else {
+        $msg = "Incorrect Email";
+    }
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -39,11 +74,23 @@
 
                                 <div class="wizard-header text-center">
                                     <div class="picture">
-                                        <img src="assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
+                                        <img src='<?php
+                                                    if ($profilepicture == null) 
+                                                    {
+                                                        echo "assets/img/default-avatar.jpg";
+                                                    } 
+                                                    else {
+                                                        echo $profilepicture;
+                                                    } 
+                                                    ?>' 
+                                                    class="picture-src" id="wizardPicturePreview" title="">
                                     </div>
-                                    <h1 class="wizard-title">Welcome Back</h1>
+                                    <h1 class="wizard-title"><?php echo $msg1; ?></h1>
                                     <h3 class="wizard-title">Log in your profile</h3>
                                     <p class="category">We are very happy to have you back.</p>
+                                    <p class="category">
+                                        <?php echo $msg; ?>
+                                    </p>
                                 </div>
 
                                 <div class="wizard-navigation">
@@ -118,15 +165,17 @@
                                                 <h5 class="info-text"> OR </h5>
 
                                                 <div class="form-group">
-                                                    <input name="email" type="email" class="form-control" placeholder="Email Address">
+                                                    <input name="email" type="email" class="form-control" placeholder="Email Address" value="<?php echo $email; ?>" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input name="password" type="password" class="form-control" placeholder="***********">
+                                                    <input name="pass" id="pass" type="password" class="form-control" placeholder="***********" required>
                                                     <a href>Forgotten Password?</a>
                                                 </div>
+
                                                 <div class="form-group">
-                                                    <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                                    <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                                                    <input type="checkbox" name="remember" id="remember" class="agree-term">
+
+                                                    <label for="remember" class="label-agree-term">Remember me</label>
                                                 </div>
 
                                             </div>
@@ -139,7 +188,7 @@
                                 <!--fOOTER-->
                                 <div class="wizard-footer">
                                     <div class="pull-right">
-                                        <input type="button" name="signin" value="signin" id="signin" class="form-submit" value="Log in" />
+                                        <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd' name='submit' value="Log in" />
                                     </div>
 
                                     <div class="clearfix"></div>
