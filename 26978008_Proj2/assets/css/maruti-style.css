@@ -841,12 +841,6 @@ ul.stat-boxes2 li:hover {
     margin-top: 6px;
 }
 
-.stat-boxes .peity_bar_good,
-.stat-boxes .peity_line_good,
-{
-    color: #459D1C;
-}
-
 .stat-boxes .peity_bar_neutral,
 .stat-boxes .peity_line_neutral {
     color: #757575;
