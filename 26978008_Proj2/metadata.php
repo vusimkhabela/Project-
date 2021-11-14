@@ -5,44 +5,75 @@ include("connect.php");
 session_start();
 
 
+
 if (logged_in()) {
     header("location:login.php");
 } else if (isset($_COOKIE['name'])) {
 
+
     $email = $_COOKIE['name'];
+
     $title = ' ';
     $picturetype = ' ';
     $picturesize = ' ';
-    $info = mysqli_query($conn, "SELECT title, picture, metadata, tag FROM gallery");
+
+    $user = mysqli_query($conn, "SELECT id, firstname, lastname FROM register
+    ORDER BY id DESC LIMIT 1");
+    $retrieveuser = mysqli_fetch_array($user);
+    $userid = $retrieveuser['id'];
+    $u_id = $userid;
+    $firstname = $retrieveuser['firstname'];
+    $lastname = $retrieveuser['lastname'];
+
+    $metadata = mysqli_query($conn, "SELECT * FROM metadata_management");
+    $retriever = mysqli_fetch_array($metadata);
+
+
+    $info = mysqli_query($conn, "SELECT id, title, picture, metadata, tag FROM gallery
+    ORDER BY id DESC LIMIT 1");
     $retrieve = mysqli_fetch_array($info);
-
-    $title = $retrieve['title'];
+    $gallery_id = $retrieve['id'];
+    $g_id = $gallery_id;
     $picture = $retrieve['picture'];
-    $metadata = $retrieve['metada'];
+    $title = $retrieve['title'];
+    $metadata = $retrieve['metadata'];
     $tag = $retrieve['tag'];
-    
 
-    if (isset($_POST['submit'])) {
-        print_r($retrieve);
+    $pictureuploaded = "./uploads/" . $picture;
 
-
+    if (isset($_POST['submit'])) 
+{
+        // print_r($retrieve);
+        // $size = $_FILES[$pictureuploaded]['size'];
+        // $format = $_FILES[$pictureuploaded]['format'];
         $title = $_POST['title'];
-        $picture = $_FILES['picture']['name'];
-        // $picturesize = $_FILES['picture']['size'];
-        // $picturetype = $_FILES['picture']['type'];
-        $tmp_picture = $_FILES['picture']['tmp_name'];
-        $movetargetPath = "./uploads/" .$tag;
-        $gettargetPath = "./uploads/".$tag."/";
-
-        $metadata = $_POST['album'];
+        $author = $_POST['author'];
+        $taken = $_POST['taken'];
+        // $uploaded = $_POST['uploaded'];
+        $plocation = $_POST['plocation'];
+        $device = $_POST['device'];
         $tag = $_POST['tag'];
+        $album = $_POST['album'];
+        $privacy = $_POST['privacy'];
 
-        move_uploaded_file($tmp_picture, $movetargetPath);
-        echo "Image Edited successfully";
-            mysqli_query($conn, "INSERT INTO gallery(title, picture, metadata, tag)
-            VALUES ('$title', '$picture', '$metadata', '$tag')");
-            header("location:metadata.php");
-        }
+        $movetargetPath = "./uploads/" . $privacy . "/" . $picture;
+
+        // mysqli_query($conn, "INSERT INTO meta(picture, title, author, taken,
+        //     plocation, device, tag, album, privacy)
+        //     VALUES ('$upicture', '$title', '$author', '$taken', 
+        //     '$plocation', '$device', '$tag', '$album','$privacy')");
+        //     // VALUES ('$picture', '$size', '$format', '$title', '$author', '$taken', '$uploaded ', 
+        //     // '$plocation', '$device', '$tag', '$album','$privacy')");
+
+        if ($picture == '') {
+            echo "No Image was ever saved";
+        } else if (mysqli_query($conn, "INSERT INTO metadata_management
+        (picture, title, author, taken, plocation, device, tag, album, privacy, userid, galleryid) 
+        VALUES ('$picture', '$title', '$author', '$taken','$plocation', '$device', '$tag', '$album','$privacy', '$u_id', '$g_id)")) 
+        {
+            move_uploaded_file($picture, $movetargetPath);
+            header("location:index.php");
+        } 
     }
 ?>
     <!doctype html>
@@ -97,7 +128,7 @@ if (logged_in()) {
                     <!--      Wizard container        -->
                     <div class="wizard-container">
                         <div class="wizard-card" data-color="orange" id="wizardProfile">
-                        <form action=" " method="POST" enctype="multipart/form-data">
+                            <form action=" " method="POST" enctype="multipart/form-data">
 
                                 <div class="wizard-header text-center">
                                     <h1 class="wizard-title">Picture Wizard</h1>
@@ -133,8 +164,11 @@ if (logged_in()) {
                                     <!--SECOND PANE-->
                                     <div class="tab-pane" id="preview">
                                         <div class="row">
-                                            <div class="picture">
-                                                    <img src="./uploads/<?php $tag; ?>/<?php $picture; ?>" style='width: 350px;' class='img-fluid img-thumbnail' title=""/>
+                                            <div class="uploadedpicture">
+                                                <?php
+                                                echo "<img src=" . $pictureuploaded . ">";
+                                                ?>
+                                            
                                                 <!--PROFILE PICTURE-->
                                             </div>
                                         </div>
@@ -148,33 +182,33 @@ if (logged_in()) {
                                             <h4 class="info-text">Image Metadata</h4>
                                             <!--IMAGE DETAILS-->
                                             <div class="info-text">
-                                                <label>Size <small><?php echo $picturesize ;?></small></label>
-                                                <label>Format: <small><?php echo $picturetype ;?></small></label>
+                                                <label>Size <small><?php echo $size; ?></small></label>
+                                                <label>Format: <small><?php echo $format; ?></small></label>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label>Title: <small>(required)</small></label>
-                                                    <input name="title" type="text" class="form-control" value ="<?php echo $picture;?>" required>
+                                                    <label>Picture Title: <small>(required)</small></label>
+                                                    <input name="title" type="text" class="form-control" value="<?php echo $picture; ?>" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Authors:</label>
-                                                    <input name="authors" type="text" class="form-control" placeholder="Mark Mkhabela, Luke Knowles">
+                                                    <input name="author" type="text" class="form-control" value="<?php echo $firstname . " " . $lastname . " "; ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Date taken:</label>
-                                                    <input name="date" type="datetime-local" class="form-control" placeholder="26978008@nwu.ac.za">
+                                                    <input name="taken" type="datetime-local" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Location:</label>
-                                                    <input name="location" type="text" class="form-control" placeholder="26978008@nwu.ac.za">
+                                                    <input name="plocation" type="text" class="form-control" placeholder="England">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Device used:</label>
-                                                    <input name="device" type="text" class="form-control" placeholder="26978008@nwu.ac.za">
+                                                    <input name="device" type="text" class="form-control" placeholder="EOS 300 Canon">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Tags: <small>(optinal)</small></label>
-                                                    <input name="tags" type="text" class="form-control" placeholder="Holiday, Trip, Vacation, Clouds">
+                                                    <input name="tag" type="text" class="form-control" placeholder="Holiday, Trip, Vacation, Clouds">
                                                 </div>
                                             </div>
                                             <h4 class="info-text">Image Groupshare</h4>
@@ -184,11 +218,11 @@ if (logged_in()) {
                                                     <select name="album" class="form-control">
                                                         <option value="solo"> Solo </option>
                                                         <option value="travel"> Travel </option>
-                                                        <option value=" "> Fashion </option>
+                                                        <option value="fashion"> Fashion </option>
                                                         <option value="family"> Family </option>
                                                     </select>
                                                     <label>Image privacy:</label><br>
-                                                    <select name="tag" class="form-control">
+                                                    <select name="privacy" class="form-control">
                                                         <option value="public">Timeline</option>
                                                         <option value="private">Private</option>
                                                     </select>
@@ -212,22 +246,6 @@ if (logged_in()) {
                                     <div class="clearfix"></div>
                                 </div>
                             </form>
-                            <!-- <?php
-
-                                    $sql = "SELECT picture FROM gallery";
-                                    $retrieve = mysqli_query($conn, $sql);
-                                    if (mysqli_num_rows($retrieve) > 0) {
-                                        while ($fetch = mysqli_fetch_assoc($retrieve)) {
-                                    ?>
-                            <img src= "./uploads/profilepictures/
-                            <?php $fetch['$picture'];
-                            ?>"
-                            width = 100 height=100>
-                        <?php
-                                        }
-                                    }
-
-                        ?> -->
                         </div>
                     </div>
                     <!-- wizard container -->
@@ -235,7 +253,6 @@ if (logged_in()) {
             </div>
             <!-- end row -->
         </div>
-
 
         <div class="footer">
             <div class="container text-center">
@@ -245,6 +262,7 @@ if (logged_in()) {
         </div>
 
     </body>
+
 
     <!--   Core JS Files   -->
     <script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
@@ -257,6 +275,7 @@ if (logged_in()) {
 
     <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
     <script src="assets/js/jquery.validate.min.js" type="text/javascript"></script>
+
 
     </html>
 <?php

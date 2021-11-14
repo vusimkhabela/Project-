@@ -15,16 +15,14 @@ if (logged_in()) {
         
         $picture = $_FILES['picture']['name'];
         $tmp_picture = $_FILES['picture']['tmp_name'];
-        $targetPath = "./uploads" .$picture;
+        $targetPath = "./uploads/" .$picture;
 
         if ($picture== '') {
             echo "No Image uploaded";
         }
         else if(mysqli_query($conn, "INSERT INTO gallery(picture) VALUES ('$picture')"))
         {
-            mysqli_query($conn, "INSERT INTO gallery(picture) VALUES ('$picture')");
             move_uploaded_file($tmp_picture, $targetPath);
-            echo "Image uploaded to database";
             header("location:metadata.php");
         }
         else{

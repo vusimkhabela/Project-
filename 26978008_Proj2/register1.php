@@ -385,6 +385,28 @@ if (isset($_POST['next'])) {
                                                 </div>
 
                                             </div>
+
+                                            <!-- NEEDS TO BE THE SAME AS THE HOBBIES ABOVE
+                                            <div class="col-sm-8 col-sm-offset-2">
+		                                        <div class="col-sm-4 col-sm-offset-2">
+													<div class="choice" data-toggle="wizard-checkbox">
+		                                                <input type="checkbox" name="jobb" value="Design">
+		                                                <div class="card card-checkboxes card-hover-effect">
+		                                                    <i class="ti-home"></i>
+															<p>Home</p>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                        <div class="col-sm-4">
+													<div class="choice" data-toggle="wizard-checkbox">
+		                                                <input type="checkbox" name="jobb" value="Design">
+		                                                <div class="card card-checkboxes card-hover-effect">
+		                                                    <i class="ti-package"></i>
+															<p>Apartment</p>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div> -->
                                         </div>
                                     </div>
 
