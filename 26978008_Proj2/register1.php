@@ -10,9 +10,10 @@ $firstname = ' ';
 $lastname = ' ';
 $email = ' ';
 $num = ' ';
-$pass = ' ';
+$password = ' ';
 $tagline = ' ';
 $profilepicture = ' ';
+$checkbox = ' ';
 if (isset($_POST['submit'])) {
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
@@ -20,18 +21,19 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $num = $_POST['num'];
     $country = $_POST['country'];
-    $pass = $_POST['pass'];
-    $cpass = $_POST['cpass'];
+    $password = $_POST['pass'];
+    $cpassword = $_POST['cpass'];
     $checkbox1 = isset($_POST['hobby']);
     $profilepicture = $_FILES['profilepicture']['name'];
     $tmp_profilepicture = $_FILES['profilepicture']['tmp_name'];
+    $pp = "./uploads/profilepictures" .$picture;
     $checkbox = isset($_POST['terms']);
     $tagline = $_POST['tagline'];
     echo "Saved user:" . $firstname . " " . $lastname . " , " . $radio . " , " . $country . " , " . $checkbox
-        . " , " . $email . " , " . $num . " , " . $pass . " , " . $profilepicture . " , " . $checkbox1 . " " . $tagline;
-    if (strlen($pass) < 6) {
+        . " , " . $email . " , " . $num . " , " . $password . " , " . $profilepicture . " , " . $checkbox1 . " " . $tagline;
+    if (strlen($password) < 6) {
         $msg = "Your membership was not saved! Password must contain 5 characters";
-    } else if ($pass !== $cpass) {
+    } else if ($password !== $cpassword) {
         $msg1 = "Your membership was not saved! Password is not the same.";
     } else if (email_exists($email, $conn)) {
         $msg4 = "Your membership was not saved! The email already exists.";
@@ -45,11 +47,16 @@ if (isset($_POST['submit'])) {
         $num = ' ';
     } else if ($checkbox == '') {
         $msg2 = "Your membership was not saved! Please Agree with our Terms and Conditions";
+    } else if (strlen($password) < 6) {
+        $msg = "Your membership not saved! Password must contain 5 characters";
+    } else if ($password !== $cpassword) {
+        $msg1 = "Your membership not saved! Password is not the same.";
     } else {
-        $pass=md5($pass);
+        move_uploaded_file($tmp_profilepicture, $pp);
+        // $password = md5($password);
         // password encryption
         mysqli_query($conn, "INSERT INTO register(firstname, lastname, gender, country, terms, email, num, pass, profilepicture, hobby, tagline)
-        VALUES ('$firstname', '$lastname', '$radio', '$country', '$checkbox', '$email', '$num', '$pass', '$profilepicture', '$checkbox1', '$tagline')");
+        VALUES ('$firstname', '$lastname', '$radio', '$country', '$checkbox', '$email', '$num', '$password', '$profilepicture', '$checkbox1', '$tagline')");
         $msg3 = "Your membership was successfully saved!";
         $msg2 = ' ';
         $msg1 = ' ';
@@ -63,13 +70,6 @@ if (isset($_POST['submit'])) {
     }
 }
 if (isset($_POST['next'])) {
-    if (strlen($pass) < 6) {
-        $msg = "Your membership not saved! Password must contain 5 characters";
-    } else if ($pass !== $cpass) {
-        $msg1 = "Your membership not saved! Password is not the same.";
-    } else if ($checkbox !== 'on') {
-        $msg2 = "Your membership not saved! Please Agree with our Terms and Conditions.";
-    }
 }
 ?>
 <!doctype html>
@@ -270,7 +270,7 @@ if (isset($_POST['next'])) {
                                         <div class="row">
                                             <div class="col-sm-10 col-sm-offset-1">
                                                 <div class="form-group">
-                                                <h5 class="info-text"> What tags best suit you (your interests)?</h5>
+                                                    <h5 class="info-text"> What tags best suit you (your interests)?</h5>
                                                     <input name="tagline" type="text" class="form-control" value='<?php echo $tagline; ?>'>
                                                 </div>
                                             </div>

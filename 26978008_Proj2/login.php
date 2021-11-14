@@ -9,6 +9,7 @@ $msg1 = 'Log in';
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $pass = $_POST['pass'];
+    $checkbox = isset($_POST['remember']);
     // $profilepicture = $_FILES['profilepicture']['name'];
     // $firstname = $_POST['firstname'];
     // $checkbox = isset($_POST['remember']);
@@ -17,17 +18,24 @@ if (isset($_POST['submit'])) {
 
         $msg1 = "Welcome back";
 
-        $pass = mysqli_query($conn, "SELECT pass FROM register WHERE email='$email'");
-        $pass_w= mysqli_fetch_array($pass);
+        $password = mysqli_query($conn, "SELECT pass FROM register WHERE email='$email'");
+        // $password = md5($password);
+        $pass_w = mysqli_fetch_array($password);
         $dpass = $pass_w['pass'];
-        $pass= md5($pass);
         if ($pass !== $dpass) {
             $msg = "Incorrect Password";
         } else {
             $_SESSION['email'] = $email;
+
+            if($checkbox !== null){
+                setcookie('name', $email, time()+9000);
+            }
+
             header("location:editprofile.php");
-        }
-    } else {
+            // echo "You are logged in";
+            }
+    } 
+    else {
         $msg = "Incorrect Email";
     }
 }
@@ -75,15 +83,12 @@ if (isset($_POST['submit'])) {
                                 <div class="wizard-header text-center">
                                     <div class="picture">
                                         <img src='<?php
-                                                    if ($profilepicture == null) 
-                                                    {
+                                                    if ($profilepicture == null) {
                                                         echo "assets/img/default-avatar.jpg";
-                                                    } 
-                                                    else {
+                                                    } else {
                                                         echo $profilepicture;
-                                                    } 
-                                                    ?>' 
-                                                    class="picture-src" id="wizardPicturePreview" title="">
+                                                    }
+                                                    ?>' class="picture-src" id="wizardPicturePreview" title="">
                                     </div>
                                     <h1 class="wizard-title"><?php echo $msg1; ?></h1>
                                     <h3 class="wizard-title">Log in your profile</h3>
