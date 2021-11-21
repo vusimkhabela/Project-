@@ -1,0 +1,43 @@
+@import '~src/styles/colorPallete.scss';
+
+.separator-container {
+  display: flex;
+  padding: 16px 0;
+
+  .hr-line {
+    flex-grow: 1;
+    margin: auto;
+  }
+
+  .separator-text {
+    margin: 0 16px;
+  }
+}
+
+.btn-third-party {
+  color: $text-color;
+  border-color: white;
+  background-color: white;
+}
+
+.btn-facebook {
+  &:hover {
+    color: white;
+    background-color: $primary;
+    border-color: $primary;
+  }
+}
+
+.btn-google {
+  &:hover {
+    color: white;
+    background-color: $danger;
+    border-color: $danger;
+  }
+}
+
+.error {
+  font-size: 80%;
+  color: #c4183c;
+  margin-top: 0.25rem;
+}

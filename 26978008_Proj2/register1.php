@@ -1,11 +1,13 @@
 <?php
 include("function.php");
 include("connect.php");
+
 $msg2 = ' ';
 $msg1 = ' ';
 $msg = ' ';
 $msg3 = ' ';
 $msg4 = ' ';
+
 $firstname = ' ';
 $lastname = ' ';
 $email = ' ';
@@ -14,7 +16,9 @@ $password = ' ';
 $tagline = ' ';
 $profilepicture = ' ';
 $checkbox = ' ';
+
 if (isset($_POST['submit'])) {
+
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $radio = isset($_POST['gender']);
@@ -26,11 +30,10 @@ if (isset($_POST['submit'])) {
     $checkbox1 = isset($_POST['hobby']);
     $profilepicture = $_FILES['profilepicture']['name'];
     $tmp_profilepicture = $_FILES['profilepicture']['tmp_name'];
-    $pp = "./uploads/profilepictures" .$picture;
+    $pp = "./uploads/profilepictures/" .$profilepicture;
     $checkbox = isset($_POST['terms']);
     $tagline = $_POST['tagline'];
-    echo "Saved user:" . $firstname . " " . $lastname . " , " . $radio . " , " . $country . " , " . $checkbox
-        . " , " . $email . " , " . $num . " , " . $password . " , " . $profilepicture . " , " . $checkbox1 . " " . $tagline;
+
     if (strlen($password) < 6) {
         $msg = "Your membership was not saved! Password must contain 5 characters";
     } else if ($password !== $cpassword) {
@@ -69,9 +72,10 @@ if (isset($_POST['submit'])) {
         $profilepicture = ' ';
     }
 }
-if (isset($_POST['next'])) {
-}
+
 ?>
+
+
 <!doctype html>
 <html lang="en">
 

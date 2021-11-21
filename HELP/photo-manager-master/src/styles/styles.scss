@@ -1,0 +1,116 @@
+@import "./shards/shards.min.css";
+@import "./layout.scss";
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+// Fix for below bug:
+// Clicking multiple times on same button make cursor default
+.btn {
+  cursor: pointer;
+
+  // On chrome mac osx on button shadow persists after click, this fixes it
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
+// Need to override so it doesn't go out of bounds on invalid input
+.input-group-prepend {
+  height: fit-content;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.display-none {
+  display: none;
+}
+
+.btn-min-width {
+  min-width: 100px;
+}
+
+.btn-mid-width {
+  min-width: 250px;
+}
+
+.transition-all-2 {
+  transition: all .2s ease-in-out;
+}
+
+.fa-camera {
+  color: #5a6169 !important;
+}
+
+// html, body { height: 100%; }
+
+.mat-dialog-container {
+  box-shadow: 0 0 25px rgba(40, 47, 60, .05), 0 20px 25px rgba(40, 47, 60, .05), 0 3px 4px rgba(40, 47, 60, .05) !important;
+  border-radius: 1.5rem !important;
+  margin-top: 5rem !important;
+}
+
+.cdk-overlay-backdrop {
+  background: rgba(40, 47, 60, .05) !important;
+}
+
+// Loader
+.spinner-blue {
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  height: 20px;
+  align-items: center;
+}
+
+.spinner-blue:after {
+  content: " ";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 3px solid #5a6169;
+  border-color: #5a6169 transparent #5a6169 transparent;
+  animation: spinner-blue 1.2s linear infinite;
+}
+
+@keyframes spinner-blue {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  height: 20px;
+  align-items: center;
+}
+
+.spinner:after {
+  content: " ";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 3px solid white;
+  border-color: white transparent white transparent;
+  animation: spinner 1.2s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

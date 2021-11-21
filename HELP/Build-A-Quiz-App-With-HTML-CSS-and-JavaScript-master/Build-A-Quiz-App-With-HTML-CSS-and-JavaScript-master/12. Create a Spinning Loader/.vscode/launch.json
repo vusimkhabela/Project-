@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "c:\\Users\\King IV\\Desktop\\Build-A-Quiz-App-With-HTML-CSS-and-JavaScript-master\\Build-A-Quiz-App-With-HTML-CSS-and-JavaScript-master\\12. Create a Spinning Loader",
+      "environment": [],
+      "program": "c:\\Users\\King IV\\Desktop\\Build-A-Quiz-App-With-HTML-CSS-and-JavaScript-master\\Build-A-Quiz-App-With-HTML-CSS-and-JavaScript-master\\12. Create a Spinning Loader\\build\\Debug\\outDebug",
+      "internalConsoleOptions": "openOnSessionStart",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "externalConsole": false,
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}

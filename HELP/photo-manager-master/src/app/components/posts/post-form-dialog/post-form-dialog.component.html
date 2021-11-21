@@ -1,0 +1,70 @@
+<form name=form (ngSubmit)="createPost(f)" #f="ngForm" class="form-container">
+
+  <!-- Image -->
+  <div class="round-absolute">
+    <i *ngIf="!imgFile" class="fa fa-camera icon-camera"></i>
+    <img *ngIf=imgFile class="image-preview" [src]="imageSelectedURL" alt="text">
+  </div>
+
+  <!-- Upload image Button -->
+  <div class="content-container">
+    <div class="form-group ml-auto mr-auto" style="width: fit-content;">
+      <label id="#bb" class="btn btn-pill with-shadows btn-mid-width upload-button">
+        Upload image
+        <input type="file" accept="image/*" (change)="handleImageInputChange($event.target.files)" class="input-image">
+      </label>
+    </div>
+
+    <!-- Location Input -->
+    <div class="location-container form-group">
+      <label for="location">Location</label>
+      <ng4geo-autocomplete [userSettings]=locationSettings name=location (componentCallback)="handleLocationInputChange($event)"></ng4geo-autocomplete>
+    </div>
+
+    <!-- Title Input -->
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input placeholder="Title" type="text" class="form-control" name=title [(ngModel)]="titleInput" #title="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && title.invalid }" required>
+
+      <div *ngIf="f.submitted && title.invalid" class="invalid-feedback">
+        <div *ngIf="title.errors.required">Last Name is required</div>
+      </div>
+    </div>
+
+    <!-- Description Input -->
+    <div class="form-group">
+      <label for="textarea">Description</label>
+      <textarea [(ngModel)]="descriptionTextarea" #description="ngModel" name="description" class="form-control" cols="40"
+        rows="5" style="resize: none;" required [ngClass]="{ 'is-invalid': f.submitted && description.invalid }"></textarea>
+
+      <div *ngIf="f.submitted && description.invalid" class="invalid-feedback">
+        <div *ngIf="description.errors.required">Description is required</div>
+      </div>
+    </div>
+
+    <!-- Datepicker Input -->
+    <div class="form-group">
+      <label for="datepicker">Date the photo was taken</label>
+
+      <div class="input-group input-group-seamless">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-calendar-alt"></i>
+          </div>
+        </div>
+
+        <input #datePicker [ngModel]="dateInput" (blur)="dateInput = datePicker.value" name="datepicker" type="text" class="form-control date"
+          id="datepicker" data-provide="datepicker">
+      </div>
+    </div>
+
+    <!-- Create button -->
+    <div class="form-group ml-auto mr-auto" style="width: fit-content;">
+      <button type="submit" class="btn btn-primary btn-pill btn-mid-width">
+        <span *ngIf="!isLoading">Create Post</span>
+        <div *ngIf="isLoading" class="spinner"></div>
+      </button>
+    </div>
+  </div>
+</form>

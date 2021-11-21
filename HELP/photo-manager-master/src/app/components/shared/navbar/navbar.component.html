@@ -1,0 +1,32 @@
+<nav *ngIf=showNav() class="navbar navbar-expand-lg navbar-light mb-4">
+  <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNavDropdown-7"
+    aria-controls="navbarNavDropdown-7" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown-7">
+
+    <!-- Profile -->
+    <ul class="navbar-nav ml-auto">
+      <li *ngIf="authService.user | async as user" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="https://designrevision.com" id="navbarDropdownMenuLink-7" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{ user.displayName || user.email }}
+        </a>
+
+        <img *ngIf="user.photoURL" [src]="user.photoURL" class="profile-picture">
+        <i *ngIf="!user.photoURL" class="fa fa-user-circle profile-icon"></i>
+
+        <!-- Dropdown -->
+        <div class="dropdown-menu dropdown-menu-right fade in" aria-labelledby="navbarDropdownMenuLink-7">
+          <div class="dropdown-item" (click)=authService.logout()>
+            <i class="fa fa-sign-out-alt mr-2"></i>
+            Logout
+          </div>
+        </div>
+      </li>
+
+
+    </ul>
+  </div>
+</nav>

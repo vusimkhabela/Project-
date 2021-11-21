@@ -1,0 +1,44 @@
+@import '~src/styles/colorPallete.scss';
+
+.posts-page {
+  max-width: $boxed-page-width;
+  margin: auto;
+  padding: 16px;
+  display: flex;
+
+  .posts-content {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      width: 160px;
+
+      .btn {
+        margin-left: auto;
+        height: fit-content;
+        width: 140px;
+        border: 1px solid #5a6169;
+
+        .fa {
+          font-size: $icon-size;
+        }
+      }
+    }
+
+    .posts-container {
+      flex-grow: 1;
+      padding-left: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .item {
+        width: 100%;
+        margin-bottom: 4rem;
+      }
+    }
+  }
+}

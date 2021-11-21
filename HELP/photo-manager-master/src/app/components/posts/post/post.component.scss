@@ -1,0 +1,203 @@
+@import '~src/styles/colorPallete.scss';
+
+.post-wrapper {
+  display: flex;
+
+  .post-container {
+    border-radius: 0.625rem;
+    box-shadow: $light-shadow;
+    overflow: hidden;
+    display: flex;
+    max-width: 614px;
+    flex-direction: column;
+    flex-grow: 1;
+    border: 1px solid #efefef;
+
+    .img-container {
+      position: relative;
+
+      &:hover {
+        .img-container-view-image {
+          visibility: visible;
+        }
+      }
+
+      .image {
+        width: 100%;
+        align-self: baseline;
+        max-height: 614px;
+        margin: auto;
+        object-fit: contain;
+        background-color: #fafafa;
+      }
+
+      .img-container-view-image {
+        visibility: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.4);
+        cursor: pointer;
+
+        .fa {
+          font-size: 60px;
+          color: rgba(255, 255, 255, 0.8);
+        }
+      }
+    }
+
+    .post-content {
+      padding: 56px;
+
+      .description {
+        margin-top: 1.75rem;
+      }
+
+      .add-tag-container {
+
+        .show-add-tag-button {
+          margin-bottom: 0;
+          font-weight: bold;
+          cursor: pointer;
+          font-size: 12px;
+          margin-left: 6px;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .add-tag-button {
+        float: right;
+        width: 100px;
+        color: $primary;
+        background-color: transparent;
+      }
+
+      .add-comment-container {
+        margin-left: 4rem;
+
+        .show-add-comment-button {
+          margin-bottom: 0;
+          font-weight: bold;
+          cursor: pointer;
+          font-size: 12px;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .add-comment-button {
+          float: right;
+          color: $primary;
+          background-color: transparent;
+        }
+      }
+
+      .comments-container {
+        display: flex;
+        margin-top: 6rem;
+
+        .comments-profile-picture {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          margin-top: 4px;
+        }
+
+        .comments-profile-icon {
+          width: 30px;
+          height: 30px;
+          font-size: 30px;
+        }
+
+        .comments {
+          margin-left: 1rem;
+          width: 100%;
+
+          .comment {
+            border-left: 1px solid $border-color;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            display: flex;
+
+            &:hover {
+              .comment-actions-container {
+                button {
+                  visibility: visible;
+                }
+              }
+            }
+
+            .comment-text {
+              flex-grow: 1;
+              margin-bottom: 0;
+              white-space: pre-line;
+            }
+
+            .comment-actions-container {
+              button {
+                font-size: 18px;
+                color: #abb6bf;
+                padding: 0;
+                visibility: hidden;
+                margin-left: 1rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .post-footer {
+      padding: 56px;
+      padding-top: 0;
+
+      .fa {
+        margin-right: 16px;
+        color: #abb6bf;
+      }
+
+      .location-container {
+        cursor: pointer;
+
+        &:hover {
+          span {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .actions-container {
+    margin-left: 32px;
+
+    .btn-icon {
+      width: fit-content;
+
+      .fa {
+        font-size: $icon-size;
+        color: #abb6bf;
+      }
+
+      .red-heart {
+        color: $pink;
+      }
+    }
+  }
+}
+
+.cancel-button {
+  float: right;
+  color: $text-color;
+  background-color: transparent;
+}
