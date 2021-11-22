@@ -135,7 +135,7 @@ if (logged_in()) {
                 <div class="col-sm-8 col-sm-offset-2">
                     <!--      Wizard container        -->
                     <div class="">
-                        <div class="" data-color="orange" id="wizardProfile">
+                        <div class="" data-color="green" id="wizardProfile">
                             <form method="GET" class="search-form" id="search-form">
 
                                 <div class="wizard-header text-center">

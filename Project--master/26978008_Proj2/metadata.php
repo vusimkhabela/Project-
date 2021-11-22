@@ -166,7 +166,7 @@ if (logged_in()) {
                 <div class="col-sm-8 col-sm-offset-2">
                     <!--      Wizard container        -->
                     <div class="wizard-container">
-                        <div class="wizard-card" data-color="orange" id="wizardProfile">
+                        <div class="wizard-card" data-color="green" id="wizardProfile">
                             <?php
                             if (isset($_POST['edit_metadata'])) {
                                 $_id = $_POST['edit_id'];
@@ -213,13 +213,13 @@ if (logged_in()) {
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#finish" data-toggle="tab">
-                                                        <div class="icon-circle">
-                                                            <i class="ti-map"></i>
-                                                        </div>
-                                                        Edit Metadata
-                                                    </a>
-                                                </li>
+											<a href="#finish" data-toggle="tab">
+												<div class="icon-circle">
+													<i class="ti-pencil"></i>
+												</div>
+												Description
+											</a>
+										</li>
                                             </ul>
                                         </div>
                                         <div class="tab-content">

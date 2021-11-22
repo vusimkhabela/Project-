@@ -1,0 +1,70 @@
+
+
+h1 {
+	margin: 15px 0 25px;
+	text-align: center;
+	font-size: 30px;
+}
+
+input {
+	color: #022255 !important;
+}
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+	box-shadow: 0 0 5px rgba(246, 8, 118, 0.8);
+	border: 1px solid rgba(246, 8, 110, 0.8);
+}
+
+.input-md {
+	margin-bottom: 10px;
+}
+
+.form-horizontal {
+	width: 320px;
+	background-color: #ffffff;
+	padding: 25px 30px;
+	border-radius: 12px;
+	box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+}
+
+.control-label {
+	text-align: left !important;
+	padding-bottom: 4px;
+}
+
+.progress {
+	height: 3px !important;
+}
+
+.progress-bar-danger {
+	background-color: #e90f10;
+}
+
+.progress-bar-warning {
+	background-color: #ffad00;
+}
+
+.progress-bar-success{
+	background-color: #02b502;
+}
+
+.fa-eye {
+	color: #022255;
+	cursor: pointer;
+	margin-right: 5px;
+}
+
+
+.ex-account p a {
+	color: #f6086e;
+	text-decoration: underline;
+}
+
+.fa-circle {
+	font-size: 6px;
+}
+
+.fa-check {
+	color: #02b502;
+}

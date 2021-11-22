@@ -2,14 +2,18 @@
 include("function.php");
 include("connect.php");
 session_start();
+
+$logs = ".\logs\errors.txt";
 error_reporting(0);
+c
+
 $msg = ' ';
 $email = ' ';
 $msg1 = 'Log in';
 
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
-    $password_encrypted = $_POST['pass'];
+    $pass = $_POST['pass'];
     // $password = md5($pass);
 
     // $salt = "codeflix";
@@ -22,26 +26,38 @@ if (isset($_POST['submit'])) {
     // 
     if (email_exists($email, $conn)) {
 
-    
+
         // $query = "SELECT * FROM register WHERE email='$email' AND pass='$password_encrypted'";
         // $result = mysqli_query($conn, $query);
+
+
+        $result = mysqli_query($con, "SELECT pass FROM register WHERE email='$email'");
+        $retrievepassword = mysqli_fetch_assoc($result);
+
         $query = mysqli_query($conn, "SELECT count(*) as total FROM register WHERE email='$email' AND pass='$password_encrypted'");
         $row = mysqli_fetch_array($query);
-        if(($row['total'])>0)
-        {
+
+        if (md5($pass) !== $retrievepassword['pass']) {
             $_SESSION['email'] = $email;
 
-            if($checkbox !== null){
-                setcookie('name', $email, time()+9000);
+            if ($checkbox !== null) {
+                setcookie('name', $email, time() + 9000);
             }
             header("location:editprofile.php");
             // echo "You are logged in";
-        }
-        else{
+        } else if (($row['total']) > 0) {
+            $_SESSION['email'] = $email;
+
+            if ($checkbox !== null) {
+                setcookie('name', $email, time() + 9000);
+            }
+            header("location:editprofile.php");
+            // echo "You are logged in";
+        } else {
             $msg = "Incorrect Password";
-            print_r("EMAIL in DB: " .$email);
-            print_r("PASSWORD in DB: " .$password_encrypted);
-            print_r("PASSWORD you Entered: " .$pass);
+            print_r("EMAIL in DB: " . $email);
+            print_r("PASSWORD in DB: " . $password_encrypted);
+            print_r("PASSWORD you Entered: " . $pass);
         }
 
         $info = mysqli_query($conn, "SELECT firstname, lastname, profilepicture FROM register WHERE email='$email'");
@@ -51,10 +67,8 @@ if (isset($_POST['submit'])) {
         $lastname = $retrieve['lastname'];
         $profilepicture = $retrieve['profilepicture'];
 
-        $msg1 = "Welcome back".$firstname." ".$lastname;
-
-    } 
-    else {
+        $msg1 = "Welcome back" . $firstname . " " . $lastname;
+    } else {
         $msg = "Incorrect Email";
     }
 }
@@ -98,7 +112,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-sm-8 col-sm-offset-2">
                     <!--      Wizard container        -->
                     <div class="wizard-container">
-                        <div class="card wizard-card" data-color="orange" id="wizardProfile">
+                        <div class="card wizard-card" data-color="green" id="wizardProfile">
                             <form method="POST" class="signin-form" id="signin-form">
 
                                 <div class="wizard-header text-center">
@@ -157,7 +171,7 @@ if (isset($_POST['submit'])) {
 
                                             </div>
                                             <p>
-                                                    CAPTCHA
+                                                CAPTCHA
                                             </p>
 
                                         </div>
@@ -211,4 +225,4 @@ if (isset($_POST['submit'])) {
 <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
 <script src="assets/js/jquery.validate.min.js" type="text/javascript"></script>
 
-</html>
+</html

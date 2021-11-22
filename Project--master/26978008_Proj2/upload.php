@@ -121,7 +121,7 @@ if (logged_in()) {
                     <div class="col-sm-8 col-sm-offset-2">
                         <!--      Wizard container        -->
                         <div class="wizard-container">
-                            <div class="wizard-card" data-color="orange" id="wizardProfile">
+                            <div class="wizard-card" data-color="green" id="wizardProfile">
                                 <form action=" " method="POST" enctype="multipart/form-data">
 
                                     <div class="wizard-header text-center">
@@ -212,7 +212,7 @@ if (logged_in()) {
                     <div class="col-sm-8 col-sm-offset-2">
                         <!--      Wizard container        -->
                         <div class="wizard-container">
-                            <div class="wizard-card" data-color="orange" id="wizardProfile">
+                            <div class="wizard-card" data-color="green" id="wizardProfile">
                                 <form action=" " method="POST" enctype="multipart/form-data">
 
                                     <div class="wizard-header text-center">
@@ -296,6 +296,14 @@ if (logged_in()) {
             </div>
         </div>
         </div>
+        
+        <script>
+      function seconds() {
+        setTimeout(function() {
+          window.location.href = "http://localhost/Project%202/Project--master/26978008_Proj2/googledrive.php";
+        }, 5000);
+      }
+    </script>
 
     </body>
 

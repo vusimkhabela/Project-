@@ -27,10 +27,10 @@ if (isset($_POST['submit'])) {
     $checkbox1 = isset($_POST['hobby']);
     $profilepicture = $_FILES['profilepicture']['name'];
     $tmp_profilepicture = $_FILES['profilepicture']['tmp_name'];
-    $pp = "./uploads/profilepictures" .$profilepicture;
+    $pp = "./uploads/profilepictures" . $profilepicture;
     $checkbox = isset($_POST['terms']);
     $tagline = $_POST['tagline'];
-    
+
 
     if (strlen($password) < 6) {
         $msg = "Your membership was not saved! Password must contain 5 characters";
@@ -54,12 +54,12 @@ if (isset($_POST['submit'])) {
         $msg1 = "Your membership not saved! Password is not the same.";
     } else {
         move_uploaded_file($tmp_profilepicture, $pp);
-        // $password = md5($password);
+        // $pass = md5($password);
         // password encryption
         $salt = "codeflix";
-        $password_encrypted = sha1($password.$salt);
+        $password_encrypted = sha1($password . $salt);
         mysqli_query($conn, "INSERT INTO register(firstname, lastname, gender, country, terms, email, num, pass, profilepicture, hobby, tagline)
-        VALUES ('$firstname', '$lastname', '$radio', '$country', '$checkbox', '$email', '$num', '$password_encrypted', '$profilepicture', '$checkbox1', '$tagline')");
+        VALUES ('$firstname', '$lastname', '$radio', '$country', '$checkbox', '$email', '$num', '$pass', '$profilepicture', '$checkbox1', '$tagline')");
         $msg3 = "Your membership was successfully saved!";
         $msg2 = ' ';
         $msg1 = ' ';
@@ -96,6 +96,7 @@ if (isset($_POST['submit'])) {
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/paper-bootstrap-wizard.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/checker.css">
 
     <!-- Fonts and Icons -->
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
@@ -113,7 +114,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-sm-8 col-sm-offset-2">
                     <!--      Wizard container        -->
                     <div class="wizard-container">
-                        <div class="card wizard-card" data-color="orange" id="wizardProfile">
+                        <div class="card wizard-card" data-color="green" id="wizardProfile">
                             <form action=" " method="POST" enctype="multipart/form-data">
 
                                 <div class="wizard-header text-center">
@@ -233,8 +234,10 @@ if (isset($_POST['submit'])) {
                                             <div class="col-sm-7 col-sm-offset-3">
                                                 <h5 class="info-text"> Create a password </h5>
 
-                                                <div class="form-group">
-                                                    <input type="password" id="pass" name="pass" class="form-control" placeholder="**********" required>
+                                                <!-- <div class="form-group">
+                                                    <div class= "field">
+                                                        <input type="password" onkeyup="trigger()" id="pass" name="pass" class="form-control" placeholder="**********" required>
+                                                    </div>
                                                     <div class="password-policies">
                                                         <div class="length">
                                                             8 Characters
@@ -249,7 +252,54 @@ if (isset($_POST['submit'])) {
                                                             Contains Special Characters
                                                         </div>
                                                     </div>
+                                                    <div class="indicator">
+                                                        <span class="weak"></span>
+                                                        <span class="medium"></span>
+                                                        <span class="strong"></span>
+                                                    </div>
+                                                    <div class="text"></div>
                                                     <br />
+                                                </div> -->
+                                                <div class="form-group">
+                                                    <label for="passwordInput" class="col-md-12 control-label">
+                                                        Password
+                                                    </label>
+                                                    <div class="col-md-12">
+                                                        <input type="password" id="password" class="form-control input-md" name="pass" placeholder="Enter Your Password" required>
+                                                        <div id="popover-password">
+                                                            <p><span id="result"></span></p>
+                                                            <div class="progress">
+                                                                <div id="password-strength" class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="list-unstyled">
+                                                            <li>
+                                                                <span class="low-upper-case">
+                                                                    <i class="fas fa-circle" aria-hidden="true"></i>
+                                                                    Lowercase &amp; UpperCase
+                                                                </span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="one-number">
+                                                                    <i class="fas fa-circle" aria-hidden="true"></i>
+                                                                    Number (0-9)
+                                                                </span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="one-special-char">
+                                                                    <i class="fas fa-circle" aria-hidden="true"></i>
+                                                                    Special character (!@#$%^&*)
+                                                                </span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="eight-character">
+                                                                    <i class="fas fa-circle" aria-hidden="true"></i>
+                                                                    Atleast 8 character
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                                 <h6 class="info-text"> Repeat password </h6>
                                                 <div class="form-group">
@@ -271,145 +321,24 @@ if (isset($_POST['submit'])) {
 
                                     <!--THIRD PANE-->
                                     <div class="tab-pane" id="account">
-                                        <div class="row">
-                                            <div class="col-sm-10 col-sm-offset-1">
-                                                <div class="form-group">
-                                                    <h5 class="info-text"> What tags best suit you (your interests)?</h5>
-                                                    <input name="tagline" type="text" class="form-control" value='<?php echo $tagline; ?>'>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h5 class="info-text"> What are you Hobbies? (checkboxes) </h5>
                                         <!--HOBBIES LIST-->
-                                        <div class="row">
-                                            <div class="col-sm-8 col-sm-offset-2">
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Graphic Design">
-                                                        
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Fishing">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <<i class="fas fa-fish"></i>>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby4" value="Photography">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="fab fa-algolia"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Gym">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="fas fa-dumbbell"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Football">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="fas fa-football-ball"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Travel">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <<i class="fas fa-passport"></i>></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Cooking">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="fas fa-blender"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Reading">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="fas fa-book-reader"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Gardening">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <<i class="fas fa-seedling"></i>></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Singing">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <<i class="fas fa-music"></i>></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Playing Instruments">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <<i class="fas fa-guitar"></i>></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-checkbox">
-                                                        <input type="checkbox" name="hobby" value="Writing">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="bi bi-pencil-fill"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <!-- NEEDS TO BE THE SAME AS THE HOBBIES ABOVE
-                                            <div class="col-sm-8 col-sm-offset-2">
-		                                        <div class="col-sm-4 col-sm-offset-2">
-													<div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="jobb" value="Design">
-		                                                <div class="card card-checkboxes card-hover-effect">
-		                                                    <i class="ti-home"></i>
-															<p>Home</p>
-		                                                </div>
-		                                            </div>
+                                        <div class="tab-pane" id="description">
+		                                <div class="row">
+		                                    <h5 class="info-text"> Tell us about your self. </h5>
+		                                    <div class="col-sm-6 col-sm-offset-1">
+		                                        <div class="form-group">
+		                                            <label>Hobbies, Interests...</label>
+		                                            <textarea class="form-control" placeholder="" rows="9"></textarea>
 		                                        </div>
-		                                        <div class="col-sm-4">
-													<div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="jobb" value="Design">
-		                                                <div class="card card-checkboxes card-hover-effect">
-		                                                    <i class="ti-package"></i>
-															<p>Apartment</p>
-		                                                </div>
-		                                            </div>
+		                                    </div>
+		                                    <div class="col-sm-4">
+		                                        <div class="form-group">
+		                                            <label>Example</label>
+		                                            <p class="description">"If you're heavily armed with a mug, smartphone and a laptop, then our hot desks will provide the pure functionality and space needed to get your work done and move on to the next one."</p>
 		                                        </div>
-		                                    </div> -->
-                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
                                     </div>
 
                                 </div>
@@ -464,6 +393,7 @@ if (isset($_POST['submit'])) {
 <script src="assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script type="text/javascript"></script>
+<script src="assets/js/checker.js"></script>
 <!--  Plugin for the Wizard -->
 <script src="assets/js/demo.js" type="text/javascript"></script>
 <script src="assets/js/paper-bootstrap-wizard.js" type="text/javascript"></script>

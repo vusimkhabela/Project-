@@ -172,7 +172,7 @@ if (logged_in()) {
             </ul>
         </nav> -->
 
-        <div class="wizard-content" data-color="orange">
+        <div class="wizard-content" data-color="green">
             <div class="header text-center">
                 <h1 class="wizard-title">Personal Space</h1>
                 <h3 class="wizard-title">What would you like to upload?</h3>
