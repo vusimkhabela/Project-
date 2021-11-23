@@ -15,12 +15,12 @@ if (logged_in()) {
     $email = $_COOKIE['name'];
 
     $title = ' ';
-        $author = ' ';
-        $uploaded = ' ';
-        $plocation = ' ';
-        $device = ' ';
-        $tag = ' ';
-        $album = ' ';
+    $author = ' ';
+    $uploaded = ' ';
+    $plocation = ' ';
+    $device = ' ';
+    $tag = ' ';
+    $album = ' ';
 
     $user = mysqli_query($conn, "SELECT id, firstname, lastname FROM register WHERE email='$email'");
     $retrieveuser = mysqli_fetch_array($user);
@@ -44,13 +44,13 @@ if (logged_in()) {
     $pictureuploaded = "./uploads/" . $taginfo . "/" . $picture;
     $exif_data = exif_read_data($pictureuploaded);
 
-        if ($pictureuploaded = "./uploads/" . $retrieve['tag'] . "/" . $retrieve['picture']) {
-            // echo "Success Loading image!";
-            // print_r($pictureuploaded);
-            // print_r($retrieve['picture']);
-        } else {
-            // echo "Failed loading Imaged";
-        }
+    if ($pictureuploaded = "./uploads/" . $retrieve['tag'] . "/" . $retrieve['picture']) {
+        // echo "Success Loading image!";
+        // print_r($pictureuploaded);
+        // print_r($retrieve['picture']);
+    } else {
+        // echo "Failed loading Imaged";
+    }
 
     $fileSize = $exif_data['FileSize'];
     $MimeType =  $exif_data['MimeType'];
@@ -95,7 +95,7 @@ if (logged_in()) {
         VALUES ('$picture','$title', '$author', '$uploaded','$plocation', '$device', '$tag', '$album','$taginfo', '$u_id', '$gallery_id',
         '$fileSize', '$MimeType', '$exposureTime', '$isoSpeedRatings', '$focalLength')")) {
 
-                header("location:index.php");
+            header("location:index.php");
         }
     }
 ?>
@@ -130,26 +130,24 @@ if (logged_in()) {
 
     <body>
 
-    <div id="user-nav" class="navbar">
+        <div id="user-nav" class="navbar">
             <ul class="navbar nav">
                 <li>
-                    <a class = "btn" href="index.php"><i class="icon icon-user"></i>Home</a>
+                    <a class="btn" href="index.php"><i class="icon icon-user"></i>Home</a>
                 </li>
                 <li class="dropdown" id="menu-messages">
                     <a href="#" data-toggle="dropdown" data-target="#menu-messages" class="btn"><i class="icon icon-envelope"></i>
-                        About us
-                    <ul class="dropdown-menu">
-                        <li><a class="sAdd" title="" href="#">new message</a></li>
-                        <li><a class="sInbox" title="" href="#">inbox</a></li>
-                        <li><a class="sOutbox" title="" href="#">outbox</a></li>
-                        <li><a class="sTrash" title="" href="#">trash</a></li>
-                    </ul>
+                        Profile
+                        <ul class="dropdown-menu">
+                            <li><a class="myspace" title="" href="editprofile.php">My Space</a></li>
+                            <li><a class="upload" title="" href="upload.php">Upload Image</a></li>
+                        </ul>
                 </li>
                 <li class="">
-                    <a class ="btn" title="" href="search.php"><i class="icon icon-cog"></i> Search</a>
+                    <a class="btn" title="" href="search.php"><i class="icon icon-cog"></i> Search</a>
                 </li>
                 <li class="">
-                    <a class = "btn" title="" href="logout.php"><i class="icon icon-share-alt"></i>
+                    <a class="btn" title="" href="logout.php"><i class="icon icon-share-alt"></i>
                         Logout</a>
                 </li>
             </ul>
@@ -213,13 +211,13 @@ if (logged_in()) {
                                                     </a>
                                                 </li>
                                                 <li>
-											<a href="#finish" data-toggle="tab">
-												<div class="icon-circle">
-													<i class="ti-pencil"></i>
-												</div>
-												Description
-											</a>
-										</li>
+                                                    <a href="#finish" data-toggle="tab">
+                                                        <div class="icon-circle">
+                                                            <i class="ti-pencil"></i>
+                                                        </div>
+                                                        Description
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="tab-content">
@@ -309,134 +307,133 @@ if (logged_in()) {
                                         </div>
                                     </form>
 
-                            <?php
+                                <?php
 
                                 }
-                            }
-                            else{
+                            } else {
 
                                 ?>
                                 <input type="hidden" name="edit_id" value="<?php echo $row['galleryid']; ?>">
                                 <form action=" " method="POST" enctype="multipart/form-data">
 
-                                        <div class="wizard-header text-center">
-                                            <h1 class="wizard-title">Picture Wizard</h1>
-                                            <h3 class="wizard-title">Image Metadata Management</h3>
-                                            <p class="category">Please edit the information below</p>
+                                    <div class="wizard-header text-center">
+                                        <h1 class="wizard-title">Picture Wizard</h1>
+                                        <h3 class="wizard-title">Image Metadata Management</h3>
+                                        <p class="category">Please edit the information below</p>
+                                    </div>
+
+                                    <div class="wizard-navigation">
+                                        <div class="progress-with-circle">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%;"></div>
                                         </div>
-
-                                        <div class="wizard-navigation">
-                                            <div class="progress-with-circle">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%;"></div>
-                                            </div>
-                                            <ul>
-                                                <li>
-                                                    <a href="#preview" data-toggle="tab">
-                                                        <div class="icon-circle">
-                                                            <i class="ti-settings"></i>
-                                                        </div>
-                                                        Preview Image
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#finish" data-toggle="tab">
-                                                        <div class="icon-circle">
-                                                            <i class="ti-map"></i>
-                                                        </div>
-                                                        Edit Metadata
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="tab-content">
-
-                                            <!--SECOND PANE-->
-                                            <div class="tab-pane" id="preview">
-                                                <div class="row">
-                                                    <div class="uploadedpicture">
-                                                        <?php
-                                                        echo "<div name = 'picture'>";
-                                                        echo "<img src=" . $pictureuploaded. ">";
-                                                        echo "</div>"
-                                                        ?>
-
-                                                        <!--PROFILE PICTURE-->
+                                        <ul>
+                                            <li>
+                                                <a href="#preview" data-toggle="tab">
+                                                    <div class="icon-circle">
+                                                        <i class="ti-settings"></i>
                                                     </div>
-                                                </div>
-                                            </div>
-
-
-
-                                            <!--THIRD PANE-->
-                                            <div class="tab-pane" id="finish">
-                                                <div class="row">
-                                                    <h4 class="info-text">Image Metadata</h4>
-                                                    <!--IMAGE DETAILS-->
-                                                    <div class="info-text">
-                                                        <label>Size <small><?php echo $fileSize; ?> kb </small></label>
-                                                        <label>Format: <small><?php echo $MimeType; ?></small></label>
+                                                    Preview Image
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#finish" data-toggle="tab">
+                                                    <div class="icon-circle">
+                                                        <i class="ti-map"></i>
                                                     </div>
-                                                    <div class="col-sm-6 col-sm-offset-3">
-                                                        <div class="form-group">
-                                                            <label>Picture Title: <small>(required)</small></label>
-                                                            <input name="title" type="text" class="form-control" placeholder=" " value="<?php echo $retrieve['title']; ?>" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Authors:</label>
-                                                            <input name="author" type="text" class="form-control" placeholder=" " value="<?php echo $retrieve['author'] . " "; ?>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Date Modified:</label>
-                                                            <input name="uploaded" type="datetime-local" class="form-control" value="" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Location:</label>
-                                                            <input name="plocation" type="text" class="form-control" value="<?php echo $retrieve['plocation']; ?>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Device used:</label>
-                                                            <input name="device" type="text" class="form-control" value="<?php echo $retrieve['model']; ?>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Tags: <small>(optinal)</small></label>
-                                                            <input name="tag" type="text" class="form-control" value="<?php echo $retrieve['tag']; ?>" placeholder="Holiday, Trip, Vacation, Clouds">
-                                                        </div>
-                                                    </div>
-                                                    <h5 class="info-text">Optional Information</h5>
-                                                    <div class="col-sm-5 col-sm-offset-3">
-                                                        <div class="form-group">
-                                                            <label>Image album:</label><br>
-                                                            <select name="album" class="form-control">
-                                                                <option value="solo"> Solo </option>
-                                                                <option value="travel"> Travel </option>
-                                                                <option value="fashion"> Fashion </option>
-                                                                <option value="family"> Family </option>
-                                                            </select>
-                                                            <label for="software">Software used:</label>
-                                                            <input name="software" type="text" class="form-control" value="<?php echo $retrieve['software']; ?>">
-                                                        </div>
-                                                    </div>
+                                                    Edit Metadata
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-content">
+
+                                        <!--SECOND PANE-->
+                                        <div class="tab-pane" id="preview">
+                                            <div class="row">
+                                                <div class="uploadedpicture">
+                                                    <?php
+                                                    echo "<div name = 'picture'>";
+                                                    echo "<img src=" . $pictureuploaded . ">";
+                                                    echo "</div>"
+                                                    ?>
+
+                                                    <!--PROFILE PICTURE-->
                                                 </div>
                                             </div>
                                         </div>
 
 
-                                        <!--fOOTER-->
-                                        <div class="wizard-footer col-sm-10 col-sm-offset-2">
-                                            <div class="pull-right">
-                                                <input type='next' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' />
-                                                <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd' name='submit' value='Done' />
-                                            </div>
 
-                                            <div class="pull-left">
-                                                <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Previous' />
+                                        <!--THIRD PANE-->
+                                        <div class="tab-pane" id="finish">
+                                            <div class="row">
+                                                <h4 class="info-text">Image Metadata</h4>
+                                                <!--IMAGE DETAILS-->
+                                                <div class="info-text">
+                                                    <label>Size <small><?php echo $fileSize; ?> kb </small></label>
+                                                    <label>Format: <small><?php echo $MimeType; ?></small></label>
+                                                </div>
+                                                <div class="col-sm-6 col-sm-offset-3">
+                                                    <div class="form-group">
+                                                        <label>Picture Title: <small>(required)</small></label>
+                                                        <input name="title" type="text" class="form-control" placeholder=" " value="<?php echo $retrieve['title']; ?>" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Authors:</label>
+                                                        <input name="author" type="text" class="form-control" placeholder=" " value="<?php echo $retrieve['author'] . " "; ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Date Modified:</label>
+                                                        <input name="uploaded" type="datetime-local" class="form-control" value="" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Location:</label>
+                                                        <input name="plocation" type="text" class="form-control" value="<?php echo $retrieve['plocation']; ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Device used:</label>
+                                                        <input name="device" type="text" class="form-control" value="<?php echo $retrieve['model']; ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Tags: <small>(optinal)</small></label>
+                                                        <input name="tag" type="text" class="form-control" value="<?php echo $retrieve['tag']; ?>" placeholder="Holiday, Trip, Vacation, Clouds">
+                                                    </div>
+                                                </div>
+                                                <h5 class="info-text">Optional Information</h5>
+                                                <div class="col-sm-5 col-sm-offset-3">
+                                                    <div class="form-group">
+                                                        <label>Image album:</label><br>
+                                                        <select name="album" class="form-control">
+                                                            <option value="solo"> Solo </option>
+                                                            <option value="travel"> Travel </option>
+                                                            <option value="fashion"> Fashion </option>
+                                                            <option value="family"> Family </option>
+                                                        </select>
+                                                        <label for="software">Software used:</label>
+                                                        <input name="software" type="text" class="form-control" value="<?php echo $retrieve['software']; ?>">
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="clearfix"></div>
                                         </div>
-                                    </form>
+                                    </div>
 
-                                
-                                <?php
+
+                                    <!--fOOTER-->
+                                    <div class="wizard-footer col-sm-10 col-sm-offset-2">
+                                        <div class="pull-right">
+                                            <input type='next' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' />
+                                            <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd' name='submit' value='Done' />
+                                        </div>
+
+                                        <div class="pull-left">
+                                            <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Previous' />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </form>
+
+
+                            <?php
 
                             }
 
@@ -452,7 +449,7 @@ if (logged_in()) {
 
         <div class="footer">
             <div class="container text-center">
-                Made with <i class="fa fa-heart heart"></i> by <a href="https://www.creative-tim.com">Creative Tim</a>. Free download <a href="https://www.creative-tim.com/product/paper-bootstrap-wizard">here.</a>
+                Made with <i class="fa fa-heart heart"></i> by V. Mkhabela 26978008
             </div>
         </div>
         </div>

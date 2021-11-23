@@ -3,9 +3,7 @@ include("function.php");
 include("connect.php");
 session_start();
 
-$logs = ".\logs\errors.txt";
-error_reporting(0);
-c
+// error_reporting(0);
 
 $msg = ' ';
 $email = ' ';
@@ -14,7 +12,7 @@ $msg1 = 'Log in';
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $pass = $_POST['pass'];
-    // $password = md5($pass);
+    $password = ($pass);
 
     // $salt = "codeflix";
     // $password_encrypted = sha1($pass.$salt);
@@ -31,13 +29,14 @@ if (isset($_POST['submit'])) {
         // $result = mysqli_query($conn, $query);
 
 
-        $result = mysqli_query($con, "SELECT pass FROM register WHERE email='$email'");
+        $result = mysqli_query($conn, "SELECT pass FROM register WHERE email='$email'");
         $retrievepassword = mysqli_fetch_assoc($result);
 
-        $query = mysqli_query($conn, "SELECT count(*) as total FROM register WHERE email='$email' AND pass='$password_encrypted'");
+        $query = mysqli_query($conn, "SELECT count(*) as total FROM register WHERE email='$email'
+        AND pass = '$password' ");
         $row = mysqli_fetch_array($query);
 
-        if (md5($pass) !== $retrievepassword['pass']) {
+        if (md5($pass) == $retrievepassword['pass']) {
             $_SESSION['email'] = $email;
 
             if ($checkbox !== null) {
@@ -56,8 +55,8 @@ if (isset($_POST['submit'])) {
         } else {
             $msg = "Incorrect Password";
             print_r("EMAIL in DB: " . $email);
-            print_r("PASSWORD in DB: " . $password_encrypted);
-            print_r("PASSWORD you Entered: " . $pass);
+            print_r("PASSWORD in DB: " . $retrievepassword['pass']);
+            print_r("PASSWORD you Entered: " . $password);
         }
 
         $info = mysqli_query($conn, "SELECT firstname, lastname, profilepicture FROM register WHERE email='$email'");
@@ -65,7 +64,8 @@ if (isset($_POST['submit'])) {
 
         $firstname = $retrieve['firstname'];
         $lastname = $retrieve['lastname'];
-        $profilepicture = $retrieve['profilepicture'];
+        $picture = $retrieve['profilepicture'];
+        $profilepicture = "uploads/profilepictures" . $picture;
 
         $msg1 = "Welcome back" . $firstname . " " . $lastname;
     } else {
@@ -170,9 +170,6 @@ if (isset($_POST['submit'])) {
                                                 </div>
 
                                             </div>
-                                            <p>
-                                                CAPTCHA
-                                            </p>
 
                                         </div>
                                     </div>
@@ -184,12 +181,11 @@ if (isset($_POST['submit'])) {
                                     <div class="pull-right">
                                         <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd' name='submit' value="Log in" />
                                     </div>
-                                    Tersms of popnsdjcbsghdv shdvchsjdb vhsdv askhdcbhas ck h ashc sj ijasbc sdchva scahs cabscg ascagsvcha scka ashjbcahjdvcbksbcjksbd vkbsdklvnsljvn;ksdmvccz
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="col-sm-7 col-sm-offset-1">
                                     <div class="row">
-                                        <h5>No account? <a href>Sign up</a></h5>
+                                        <h5>No account? <a href="register1.php">Sign up</a></h5>
 
                                     </div>
                                 </div>
@@ -206,7 +202,7 @@ if (isset($_POST['submit'])) {
 
         <div class="footer">
             <div class="container text-center">
-                Made with <i class="fa fa-heart heart"></i> by <a href="https://www.creative-tim.com">Creative Tim</a>. Free download <a href="https://www.creative-tim.com/product/paper-bootstrap-wizard">here.</a>
+                Made with <i class="fa fa-heart heart"></i> by V. Mkhabela 26978008
             </div>
         </div>
     </div>
@@ -225,4 +221,4 @@ if (isset($_POST['submit'])) {
 <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
 <script src="assets/js/jquery.validate.min.js" type="text/javascript"></script>
 
-</html
+</html>

@@ -55,9 +55,10 @@ if (isset($_POST['submit'])) {
     } else {
         move_uploaded_file($tmp_profilepicture, $pp);
         // $pass = md5($password);
+        $pass = $password;
         // password encryption
-        $salt = "codeflix";
-        $password_encrypted = sha1($password . $salt);
+        // $salt = "codeflix";
+        // $password_encrypted = sha1($password . $salt);
         mysqli_query($conn, "INSERT INTO register(firstname, lastname, gender, country, terms, email, num, pass, profilepicture, hobby, tagline)
         VALUES ('$firstname', '$lastname', '$radio', '$country', '$checkbox', '$email', '$num', '$pass', '$profilepicture', '$checkbox1', '$tagline')");
         $msg3 = "Your membership was successfully saved!";
@@ -96,7 +97,7 @@ if (isset($_POST['submit'])) {
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/paper-bootstrap-wizard.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="assets/css/checker.css">
+    <link rel="stylesheet" href="assets/css/checker.css">
 
     <!-- Fonts and Icons -->
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
@@ -220,8 +221,12 @@ if (isset($_POST['submit'])) {
                                                         <option value="Andorra"> Andorra </option>
                                                         <option value="Angola"> Angola </option>
                                                         <option value="Anguilla"> Anguilla </option>
-                                                        <option value="Antarctica"> Antarctica </option>
-                                                        <option value="...">...</option>
+                                                        <option value="Brazil"> Brazil </option>
+                                                        <option value="Botswana"> Botswane </option>
+                                                        <option value="Congo"> Congo </option>
+                                                        <option value="South Africa"> South Africa </option>
+                                                        <option value="Zimbabwe"> Zimbabwe </option>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -323,22 +328,23 @@ if (isset($_POST['submit'])) {
                                     <div class="tab-pane" id="account">
                                         <!--HOBBIES LIST-->
                                         <div class="tab-pane" id="description">
-		                                <div class="row">
-		                                    <h5 class="info-text"> Tell us about your self. </h5>
-		                                    <div class="col-sm-6 col-sm-offset-1">
-		                                        <div class="form-group">
-		                                            <label>Hobbies, Interests...</label>
-		                                            <textarea class="form-control" placeholder="" rows="9"></textarea>
-		                                        </div>
-		                                    </div>
-		                                    <div class="col-sm-4">
-		                                        <div class="form-group">
-		                                            <label>Example</label>
-		                                            <p class="description">"If you're heavily armed with a mug, smartphone and a laptop, then our hot desks will provide the pure functionality and space needed to get your work done and move on to the next one."</p>
-		                                        </div>
-		                                    </div>
-		                                </div>
-		                            </div>
+                                            <div class="row">
+                                                <h5 class="info-text"> Tell us about your self. </h5>
+                                                <div class="col-sm-6 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <label>Hobbies, Interests...</label>
+                                                        <textarea class="form-control" name="hobby" placeholder="" rows="9"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Example</label>
+                                                        <p class="description">"If I am heavily armed with a mug, smartphone and a laptop, then my hot desk usually
+                                                            provides the pure functionality and space needed to get my work done and move on to the next one."</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -359,8 +365,7 @@ if (isset($_POST['submit'])) {
 
                                 <div class="col-sm-7 col-sm-offset-1">
                                     <div class="row">
-                                        <h5>Already registered ? <a href="login.php">Log in</a></h5>
-                                        Tersms of popnsdjcbsghdv shdvchsjdb vhsdv askhdcbhas ck h ashc sj ijasbc sdchva scahs cabscg ascagsvcha scka ashjbcahjdvcbksbcjksbd vkbsdklvnsljvn;k
+                                        <h5>Already Have an Account? <a href="login.php">Sign in</a></h5>
                                     </div>
                                 </div>
 
@@ -378,7 +383,7 @@ if (isset($_POST['submit'])) {
 
         <div class="footer">
             <div class="container text-center">
-                Made with <i class="fa fa-heart heart"></i> by <a href="https://www.creative-tim.com">Creative Tim</a>. Free download <a href="https://www.creative-tim.com/product/paper-bootstrap-wizard">here.</a>
+                Made with <i class="fa fa-heart heart"></i> by V. Mkhabela 26978008
             </div>
         </div>
     </div>

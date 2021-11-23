@@ -3,7 +3,7 @@
 include("function.php");
 include("connect.php");
 session_start();
-error_reporting(0);
+// error_reporting(0);
 
 
 
@@ -83,16 +83,17 @@ if (logged_in()) {
 
     <body>
 
-        <div id="user-nav" class="navbar">
+    <div id="user-nav" class="navbar">
             <ul class="navbar nav">
                 <li>
                     <a class="btn" href="index.php"><i class="icon icon-user"></i>Home</a>
                 </li>
                 <li class="dropdown" id="menu-messages">
-                    <a href="editprofile.php" data-toggle="dropdown" data-target="#menu-messages" class="btn"><i class="icon icon-envelope"></i>
+                    <a href="#" data-toggle="dropdown" data-target="#menu-messages" class="btn"><i class="icon icon-envelope"></i>
                         Profile
                         <ul class="dropdown-menu">
-                            <li><a class="btn" title="" href="upload.php">Upload</a></li>
+                            <li><a class="myspace" title="" href="editprofile.php">My Space</a></li>
+                            <li><a class="upload" title="" href="upload.php">Upload Image</a></li>
                         </ul>
                 </li>
                 <li class="">
@@ -224,20 +225,20 @@ if (logged_in()) {
                                             <div class='overlay'>
                                                 <h2><?php echo $row['title']; ?></h2>
                                                 <?php
-                                                echo "<a class='btn' data-lightbox='mygallery' title='Album: " . $row['album'] . "(" . $row['tag'] . "), By: " . $row['author'] . ", At: " . $row['plocation'] .
+                                                echo "<button class='btn btn-primary' data-lightbox='mygallery' title='Album: " . $row['album'] . "(" . $row['tag'] . "), By: " . $row['author'] . ", At: " . $row['plocation'] .
                                                     ". Image Exposure: " . $row['exposureTime'] . ", Image ISO Rate: " . $row['isoSpeedRatings'] .
-                                                    ", Image Privacy: " . $row['privacy'] . " ' href='./uploads/timeline/" . $row['picture'] . "'>View Image Info</a>";
+                                                    ", Image Privacy: " . $row['privacy'] . " ' href='./uploads/timeline/" . $row['picture'] . "'><i class='ti-gallery'></i> VIEW INFO</button>";
                                                 ?>
                                                 <form action="metadata.php" method="POST" enctype="multipart/form-data">
                                                     <input type="hidden" name="edit_id" value="<?php echo $row['galleryid']; ?>">
-                                                    <button type="submit" name="edit_metadata" class="btn btn-primary">EDIT</button>
+                                                    <button type="submit" name="edit_metadata" class="btn btn-secondary"><i class="ti-write"></i> EDIT</button>
                                                 </form>
                                                 <form action="index.php" method="POST" enctype="multipart/form-data">
                                                     <input type="hidden" name="delete_id" value="<?php echo $items['galleryid']; ?>">
-                                                    <button type="submit" name="delete_metadata" class="btn btn-danger">DELETE</button>
+                                                    <button type="submit" name="delete_metadata" class="btn btn-danger"><i class="ti-close"> </i> DELETE</button>
                                                 </form>
-                                                <button class='btn'><a href="<?php echo "./uploads/timeline/" . $row['picture']; ?>" download>
-                                                        DOWNLOAD
+                                                <button class='btn btn-success'><a href="<?php echo "./uploads/timeline/" . $row['picture']; ?>" download>
+                                                <i class="ti-download"> </i>DOWNLOAD
                                                     </a></button>
 
                                             </div>
@@ -248,8 +249,9 @@ if (logged_in()) {
                                     if ($row['privacy'] = "private") {
                                     ?>
                                         <div class='hovereffects'>
-                                            <img class='img-thumbnail' src=<?php echo "'./uploads/private/" . $rows['picture'] . "'"; ?>>
+                                            <img class='img-thumbnail' src=<?php echo "'./uploads/private/" . $row['picture'] . "'"; ?>>
                                             <div class='overlay'>
+                                            <i class="ti-lock"><br></i>
                                                 <h2>No Access Granted</h2>
                                                 <form action="editprofile.php" method="POST" enctype="multipart/form-data">
                                                     <input type="hidden" name=" " value=" ">
@@ -273,28 +275,29 @@ if (logged_in()) {
 
         ?>
 
-        <div class="footer">
-            <div class="container text-center">
-                Made with <i class="fa fa-heart heart"></i> by <a href="https://www.creative-tim.com">Creative Tim</a>. Free download <a href="https://www.creative-tim.com/product/paper-bootstrap-wizard">here.</a>
-            </div>
-        </div>
-        </div>
+<div class="footer">
+      <div class="container text-center">
+        Made with <i class="fa fa-heart heart"></i> by V. Mkhabela 26978008
+      </div>
+    </div>
+    </div>
 
-    </body>
+  </body>
 
-    <!--   Core JS Files   -->
-    <script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
-    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+  <!--   Core JS Files   -->
+  <script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+  <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+  <script src="assets/js/lightbox-plus-jquery.min.js" type="text/javascript"></script>
 
-    <!--  Plugin for the Wizard -->
-    <script src="assets/js/demo.js" type="text/javascript"></script>
-    <script src="assets/js/paper-bootstrap-wizard.js" type="text/javascript"></script>
+  <!--  Plugin for the Wizard -->
+  <script src="assets/js/demo.js" type="text/javascript"></script>
+  <script src="assets/js/paper-bootstrap-wizard.js" type="text/javascript"></script>
 
-    <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
-    <script src="assets/js/jquery.validate.min.js" type="text/javascript"></script>
+  <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
+  <script src="assets/js/jquery.validate.min.js" type="text/javascript"></script>
 
-    </html>
+  </html>
 <?php
 
 }

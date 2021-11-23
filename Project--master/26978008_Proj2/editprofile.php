@@ -114,29 +114,27 @@ if (logged_in()) {
         <div id="user-nav" class="navbar">
             <ul class="navbar nav">
                 <li>
-                    <a class = "btn" href="index.php"><i class="icon icon-user"></i>Home</a>
+                    <a class="btn" href="index.php"><i class="icon icon-user"></i>Home</a>
                 </li>
                 <li class="dropdown" id="menu-messages">
                     <a href="#" data-toggle="dropdown" data-target="#menu-messages" class="btn"><i class="icon icon-envelope"></i>
-                        About us
-                    <ul class="dropdown-menu">
-                        <li><a class="sAdd" title="" href="#">new message</a></li>
-                        <li><a class="sInbox" title="" href="#">inbox</a></li>
-                        <li><a class="sOutbox" title="" href="#">outbox</a></li>
-                        <li><a class="sTrash" title="" href="#">trash</a></li>
-                    </ul>
+                        Profile
+                        <ul class="dropdown-menu">
+                            <li><a class="sAdd" title="" href="editprofile.php">My Space</a></li>
+                            <li><a class="sInbox" title="" href="upload.php">Upload Image</a></li>
+                        </ul>
                 </li>
                 <li class="">
-                    <a class ="btn" title="" href="search.php"><i class="icon icon-cog"></i> Search</a>
+                    <a class="btn" title="" href="search.php"><i class="icon icon-cog"></i> Search</a>
                 </li>
                 <li class="">
-                    <a class = "btn" title="" href="logout.php"><i class="icon icon-share-alt"></i>
+                    <a class="btn" title="" href="logout.php"><i class="icon icon-share-alt"></i>
                         Logout</a>
                 </li>
             </ul>
         </div>
 
-        
+
 
 
         <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
@@ -174,9 +172,9 @@ if (logged_in()) {
 
         <div class="wizard-content" data-color="green">
             <div class="header text-center">
-                <h1 class="wizard-title">Personal Space</h1>
-                <h3 class="wizard-title">What would you like to upload?</h3>
-                <p class="category">Acceptable format: jpg, png, jpeg, raw</p>
+                <h1 class="wizard-title">VEE GALLERY</h1>
+                <h3 class="wizard-title">Welcome To Your Personal Space</h3>
+                <p class="category">"Share, Manage, Discover"</p>
 
                 <p class="category">
                     <?php echo $email; ?>
@@ -196,7 +194,7 @@ if (logged_in()) {
                                         if ($profilepicture == null) {
                                             echo "assets/img/default-avatar.jpg";
                                         } else {
-                                            echo "uploads/profilepictures/" . $profilepicture;
+                                            echo "uploads/profilepictures" . $profilepicture;
                                         } ?>' alt="Profile Picture">
                             <h3 class="name"><?php echo ucfirst($firstname) . " " . ucfirst($lastname); ?></h3>
                             <p class="post"><?php echo $tagline; ?></p>
@@ -214,10 +212,10 @@ if (logged_in()) {
                         </nav>
 
                         <nav class="navbar">
-                            <li class="btn"><a href="#bio">Facebook</a></li>
-                            <li class="btn"><a href="#picturesuploaded">Twitter</a></li>
-                            <li class="btn"><a href="#education">Instagram</a></li>
-                            <li class="btn"><a href="#chats">Google+</a></li>
+                            <li class="btn"><a href="https://facebook.com/login/"><i class="ti-facebook"></i></a></li>
+                            <li class="btn"><a href="https://twitter.com/login/"><i class="ti-twitter"></i></a></li>
+                            <li class="btn"><a href="https://instagram.com/login/"><i class="ti-instagram"></i></a></li>
+                            <li class="btn"><a href="https://facebook.com/login/"><i class="ti-google"></i></a></li>
                         </nav>
                     </header>
                 </div>
@@ -225,9 +223,10 @@ if (logged_in()) {
 
                 <div class="col-sm-7">
                     <div class="row">
-                        <h5>No account? <a href>Sign up</a></h5>
-                        Tersms of popnsdjcbsghdv shdvchsjdb vhsdv askhdcbhas ck h ashc sj ijasbc sdchva scahs cabscg ascagsvcha scka ashjbcahjdvcbksbcjksbd vkbsdklvnsljvn;ksdmvccz
-
+                        Vee_Gallery is a Web application that is creatively and innovatively designed to
+                        allow users to visually share and discover metadata information by uploading photos
+                        publicly or privately and to allow users to browse what other users have posted onto
+                        the main gallery. </>
                     </div>
                 </div>
             </div>
@@ -237,43 +236,46 @@ if (logged_in()) {
 
                     <section class="picturesuploaded" id="picturesuploaded">
                         <div class="popup">
-                            <a href="upload.php"><button class="btn"> Upload <i class="fas fa-download"></i> </button></a>
+                            <a href="upload.php"><button class="btn">Upload<i class="ti-upload"></i></button></a>
                         </div>
-                        <hr/>
+                        <hr />
                         <h3 class="heading">PICTURES</h3>
 
                         <div class="photo_gallery">
-            <?php
-            while ($row = mysqli_fetch_array($display)) { ?>
-              <div class='hovereffects'>
-                <img class='img-thumbnail' src=<?php echo "'./uploads/timeline/" . $row['picture'] . "'"; ?>>
-                <div class='overlay'>
-                  <h2><?php echo $row['title']; ?></h2>
-                  <?php
-                  echo "<a class='btn' data-lightbox='mygallery' title='Album: " . $row['album'] . "(" . $row['tag'] . "), By: " . $row['author'] . ", At: " . $row['plocation'] .
-                    ". Image Exposure: " . $row['exposureTime'] . ", Image ISO Rate: " . $row['isoSpeedRatings'] .
-                    ", Image Privacy: " . $row['privacy'] . " ' href='./uploads/timeline/" . $row['picture'] . "'>View Image Info</a>";
-                  // echo "<a class='btn' name='submit' href=''>Edit Metadata Image</a>";
-                  // echo "<a class='btn' href='#'>Delete Image</a>";
-                  // echo "<a class='btn' href='#'>Download Image</a>";
-                  ?>
-                  <form action="metadata.php" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="edit_id" value="<?php echo $row['galleryid']; ?>">
-                    <button type="submit" name="edit_metadata" class="btn btn-primary">EDIT</button>
-                  </form>
-                  <form action="index.php" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="delete_id" value="<?php echo $items['galleryid']; ?>">
-                    <button type="submit" name="delete_metadata" class="btn btn-danger">DELETE</button>
-                  </form>
-                  <button class='btn'><a href= "<?php echo "./uploads/timeline/". $row['picture']; ?>" download>
-                                                                                DOWNLOAD
-                                                                                </a></button>
-                </div>
-              </div>
-            <?php }
-            ?>
+                            <?php
+                            while ($row = mysqli_fetch_array($display)) { ?>
+                                <div class='hovereffects'>
+                                    <img class='img-thumbnail' src=<?php echo "'./uploads/timeline/" . $row['picture'] . "'"; ?>>
+                                    <div class='overlay'>
+                                        <h2><?php echo $row['title']; ?></h2>
+                                        <?php
+                                        echo "<button class='btn btn-primary' data-lightbox='mygallery' title='Album: " . $row['album'] . "(" . $row['tag'] . "), By: " . $row['author'] . ", At: " . $row['plocation'] .
+                                            ". Image Exposure: " . $row['exposureTime'] . ", Image ISO Rate: " . $row['isoSpeedRatings'] .
+                                            ", Image Privacy: " . $row['privacy'] . " ' href='./uploads/timeline/" . $row['picture'] . "'><i class='ti-gallery'> </i> VIEW INFO</button>";
+                                        // echo "<a class='btn' name='submit' href=''>Edit Metadata Image</a>";
+                                        // echo "<a class='btn' href='#'>Delete Image</a>";
+                                        // echo "<a class='btn' href='#'>Download Image</a>";
+                                        ?>
+                                        <form action="metadata.php" method="POST" enctype="multipart/form-data">
+                                            <input type="hidden" name="edit_id" value="<?php echo $row['galleryid']; ?>">
+                                            <button type="submit" name="edit_metadata" class="btn btn-secondary">
+                                                <i class="ti-write"></i> EDIT</button>
+                                        </form>
+                                        <form action="index.php" method="POST" enctype="multipart/form-data">
+                                            <input type="hidden" name="delete_id" value="<?php echo $items['galleryid']; ?>">
+                                            <button type="submit" name="delete_metadata" class="btn btn-danger">
+                                                <i class="ti-close"> </i> DELETE</button>
+                                        </form>
+                                        <button class='btn'><a href="<?php echo "./uploads/timeline/" . $row['picture']; ?>" download>
+                                                <i class="ti-download"> </i>DOWNLOAD</a></button>
 
-          </div>
+
+                                    </div>
+                                </div>
+                            <?php }
+                            ?>
+
+                        </div>
                     </section>
 
 

@@ -63,19 +63,17 @@ if (logged_in()) {
 
     <body>
 
-        <div id="user-nav" class="navbar">
+    <div id="user-nav" class="navbar">
             <ul class="navbar nav">
                 <li>
                     <a class="btn" href="index.php"><i class="icon icon-user"></i>Home</a>
                 </li>
                 <li class="dropdown" id="menu-messages">
                     <a href="#" data-toggle="dropdown" data-target="#menu-messages" class="btn"><i class="icon icon-envelope"></i>
-                        About us
+                        Profile
                         <ul class="dropdown-menu">
-                            <li><a class="sAdd" title="" href="#">new message</a></li>
-                            <li><a class="sInbox" title="" href="#">inbox</a></li>
-                            <li><a class="sOutbox" title="" href="#">outbox</a></li>
-                            <li><a class="sTrash" title="" href="#">trash</a></li>
+                            <li><a class="sAdd" title="" href="editprofile.php">My Space</a></li>
+                            <li><a class="sInbox" title="" href="upload.php">Upload Image</a></li>
                         </ul>
                 </li>
                 <li class="">
@@ -108,15 +106,6 @@ if (logged_in()) {
 
 
             ?>
-
-
-
-
-
-
-
-
-
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2">
                         <!--      Wizard container        -->
@@ -292,7 +281,7 @@ if (logged_in()) {
 
         <div class="footer">
             <div class="container text-center">
-                Made with <i class="fa fa-heart heart"></i> by <a href="https://www.creative-tim.com">Creative Tim</a>. Free download <a href="https://www.creative-tim.com/product/paper-bootstrap-wizard">here.</a>
+                Made with <i class="fa fa-heart heart"></i> by V. Mkhabela 26978008
             </div>
         </div>
         </div>

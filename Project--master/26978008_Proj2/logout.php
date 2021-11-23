@@ -66,7 +66,7 @@ error_reporting(0);
             <div class="wizard-header text-center">
                 <h1 class="wizard-title">Vee Gallery</h1>
                 <h3 class="wizard-title">Number 1 Photo sharing and Metadata Management Cloud-Based application</h3>
-                <p class="category">View & Share your memories with the community.</p>
+                <p class="category">"Share, Manage, Discover"</p>
             </div>
 
             <hr />
@@ -76,17 +76,17 @@ error_reporting(0);
                 <div class="photo_gallery">
                     <div class="pic molo">
                         <a href="#" class="item">
-                            <img src="paper-1.jpeg">
+                            <img src="assets/img/event1.jpg">
                         </a>
                     </div>
                     <div class="pic family">
                         <a href="#" class="item">
-                            <img src="assets/img/wizard-list-place.png">
+                            <img src="assets/img/event2.jpg">
                         </a>
                     </div>
                     <div class="pic travels">
                         <a href="#" class="item">
-                            <img src="assets/img/wizard-create-profile.png">
+                            <img src="assets/img/event3.jpg">
                         </a>
                     </div>
                     
@@ -127,24 +127,25 @@ error_reporting(0);
 
 
     <div class="footer">
-        <div class="container text-center">
-            Made with <i class="fa fa-heart heart"></i> by <a href="https://www.creative-tim.com">Creative Tim</a>. Free download <a href="https://www.creative-tim.com/product/paper-bootstrap-wizard">here.</a>
-        </div>
+      <div class="container text-center">
+        Made with <i class="fa fa-heart heart"></i> by V. Mkhabela 26978008
+      </div>
     </div>
     </div>
 
-</body>
+  </body>
 
-<!--   Core JS Files   -->
-<script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
-<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+  <!--   Core JS Files   -->
+  <script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+  <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+  <script src="assets/js/lightbox-plus-jquery.min.js" type="text/javascript"></script>
 
-<!--  Plugin for the Wizard -->
-<script src="assets/js/demo.js" type="text/javascript"></script>
-<script src="assets/js/paper-bootstrap-wizard.js" type="text/javascript"></script>
+  <!--  Plugin for the Wizard -->
+  <script src="assets/js/demo.js" type="text/javascript"></script>
+  <script src="assets/js/paper-bootstrap-wizard.js" type="text/javascript"></script>
 
-<!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
-<script src="assets/js/jquery.validate.min.js" type="text/javascript"></script>
+  <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
+  <script src="assets/js/jquery.validate.min.js" type="text/javascript"></script>
 
-</html>
+  </html>

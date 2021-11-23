@@ -109,12 +109,10 @@ if (logged_in()) {
                 </li>
                 <li class="dropdown" id="menu-messages">
                     <a href="#" data-toggle="dropdown" data-target="#menu-messages" class="btn"><i class="icon icon-envelope"></i>
-                        About us
+                        Profile
                     <ul class="dropdown-menu">
-                        <li><a class="sAdd" title="" href="#">new message</a></li>
-                        <li><a class="sInbox" title="" href="#">inbox</a></li>
-                        <li><a class="sOutbox" title="" href="#">outbox</a></li>
-                        <li><a class="sTrash" title="" href="#">trash</a></li>
+                        <li><a class="sAdd" title="" href="editprofile.php">My Space</a></li>
+                        <li><a class="sInbox" title="" href="upload.php">Upload Image</a></li>
                     </ul>
                 </li>
                 <li class="">
@@ -126,6 +124,7 @@ if (logged_in()) {
                 </li>
             </ul>
         </div>
+
 
 
 
@@ -154,23 +153,23 @@ if (logged_in()) {
                 <div class='overlay'>
                   <h2><?php echo $row['title']; ?></h2>
                   <?php
-                  echo "<a class='btn' data-lightbox='mygallery' title='Album: " . $row['album'] . "(" . $row['tag'] . "), By: " . $row['author'] . ", At: " . $row['plocation'] .
+                  echo "<button class='btn btn-primary' data-lightbox='mygallery' title='Album: " . $row['album'] . "(" . $row['tag'] . "), By: " . $row['author'] . ", At: " . $row['plocation'] .
                     ". Image Exposure: " . $row['exposureTime'] . ", Image ISO Rate: " . $row['isoSpeedRatings'] .
-                    ", Image Privacy: " . $row['privacy'] . " ' href='./uploads/timeline/" . $row['picture'] . "'>View Image Info</a>";
+                    ", Image Privacy: " . $row['privacy'] . " ' href='./uploads/timeline/" . $row['picture'] . "'><i class='ti-gallery'></i> VIEW INFO</button>";
                   // echo "<a class='btn' name='submit' href=''>Edit Metadata Image</a>";
                   // echo "<a class='btn' href='#'>Delete Image</a>";
                   // echo "<a class='btn' href='#'>Download Image</a>";
                   ?>
                   <form action="metadata.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="edit_id" value="<?php echo $row['galleryid']; ?>">
-                    <button type="submit" name="edit_metadata" class="btn btn-primary">EDIT</button>
+                    <button type="submit" name="edit_metadata" class="btn btn-secondary"><i class="ti-write"></i> EDIT</button>
                   </form>
                   <form action="index.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="delete_id" value="<?php echo $items['galleryid']; ?>">
-                    <button type="submit" name="delete_metadata" class="btn btn-danger">DELETE</button>
+                    <button type="submit" name="delete_metadata" class="btn btn-danger"><i class="ti-close"> </i> DELETE</button>
                   </form>
-                  <button class='btn'><a href= "<?php echo "./uploads/timeline/". $row['picture']; ?>" download>
-                                                                                DOWNLOAD
+                  <button class='btn btn-success'><a href= "<?php echo "./uploads/timeline/". $row['picture']; ?>" download>
+                  <i class="ti-download"> </i>DOWNLOAD
                                                                                 </a></button>
                 </div>
               </div>
@@ -187,115 +186,18 @@ if (logged_in()) {
       </div>
 
 
-      <div class="preview-box">
-        <div class="details">
-          <span class="title">Image <p class="current-img"></p> of <p class="total-img"></p></span>
-          <span class="icon fas fa-times"></span>
-        </div>
-        <div class="image-box">
-          <img src="" alt="">
-        </div>
-      </div>
-      <div class="preview_shadow"></div>
-
-
 
 
 
       <hr />
-      <div class="span6">
-        <div class="widget-box">
-          <div class="widget-title">
-            <span class="icon"> <i class="icon-refresh"></i> </span>
-            <h5>News updates</h5>
-          </div>
-          <div class="widget-content nopadding updates">
-            <div class="new-update clearfix">
-              <i class="icon-ok-sign"></i>
-              <div class="update-done">
-                <a title="" href="#"><strong>Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit.</strong></a>
-                <span>dolor sit amet, consectetur adipiscing eli</span>
-              </div>
-              <div class="update-date">
-                <span class="update-day">20</span>jan
-              </div>
-            </div>
-            <div class="new-update clearfix">
-              <i class="icon-gift"></i>
-              <span class="update-notice">
-                <a title="" href="#"><strong>Congratulation Maruti, Happy Birthday
-                  </strong></a>
-                <span>many many happy returns of the day</span>
-              </span>
-              <span class="update-date"><span class="update-day">11</span>jan</span>
-            </div>
-            <div class="new-update clearfix">
-              <i class="icon-move"></i>
-              <span class="update-alert">
-                <a title="" href="#"><strong>Maruti is a Responsive Admin theme</strong></a>
-                <span>But already everything was solved. It will ...</span>
-              </span>
-              <span class="update-date"><span class="update-day">07</span>Jan</span>
-            </div>
-            <div class="new-update clearfix">
-              <i class="icon-leaf"></i>
-              <span class="update-done">
-                <a title="" href="#"><strong>Envato approved Maruti Admin template</strong></a>
-                <span>i am very happy to approved by TF</span>
-              </span>
-              <span class="update-date"><span class="update-day">05</span>jan</span>
-            </div>
-            <div class="new-update clearfix">
-              <i class="icon-question-sign"></i>
-              <span class="update-notice">
-                <a title="" href="#"><strong>I am alwayse here if you have any question</strong></a>
-                <span>we glad that you choose our template</span>
-              </span>
-              <span class="update-date"><span class="update-day">01</span>jan</span>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </div>
 
 
-    <div class="tab-content">
-      <!--TIMELINE-->
-      <div class="tab-pane" id="login">
-        <div class="row">
-          <div class="col-sm-12">
-
-
-            <h5 class="info-text"> OR </h5>
-
-            <div class="form-group">
-              <input name="email" type="email" class="form-control" placeholder="Email Address">
-            </div>
-            <div class="form-group">
-              <input name="password" type="password" class="form-control" placeholder="***********">
-              <a href>Forgotten Password?</a>
-            </div>
-            <div class="form-group">
-              <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-              <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-    </div>
 
 
     <!--fOOTER-->
-    <div class="col-sm-7 col-sm-offset-1">
-      <div class="row">
-        <h5>No account? <a href>Sign up</a></h5>
-        Tersms of popnsdjcbsghdv shdvchsjdb vhsdv askhdcbhas ck h ashc sj ijasbc sdchva scahs cabscg ascagsvcha scka ashjbcahjdvcbksbcjksbd vkbsdklvnsljvn;ksdmvccz
 
-      </div>
-    </div>
 
     </form>
     </div>
@@ -312,7 +214,7 @@ if (logged_in()) {
 
     <div class="footer">
       <div class="container text-center">
-        Made with <i class="fa fa-heart heart"></i> by <a href="https://www.creative-tim.com">Creative Tim</a>. Free download <a href="https://www.creative-tim.com/product/paper-bootstrap-wizard">here.</a>
+        Made with <i class="fa fa-heart heart"></i> by V. Mkhabela 26978008
       </div>
     </div>
     </div>
